@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "image",
+    "apiKey",
+    "service"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Typesense image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Typesense image tag."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Container image selection."
+    },
+    "apiKey": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Typesense API key.",
+      "x-dockyard-sensitive": true
+    },
+    "service": {
+      "type": "object",
+      "required": [
+        "port"
+      ],
+      "properties": {
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Host port published for Typesense.",
+          "maximum": 65535
+        }
+      },
+      "additionalProperties": false,
+      "description": "Service exposure."
+    }
+  },
+  "additionalProperties": false
+}

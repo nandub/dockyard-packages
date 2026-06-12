@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "image",
+    "rootUser",
+    "rootPassword",
+    "service"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "MinIO image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "MinIO image tag."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Container image selection."
+    },
+    "rootUser": {
+      "type": "string",
+      "minLength": 1,
+      "description": "MinIO root user."
+    },
+    "rootPassword": {
+      "type": "string",
+      "minLength": 1,
+      "description": "MinIO root password.",
+      "x-dockyard-sensitive": true
+    },
+    "service": {
+      "type": "object",
+      "required": [
+        "apiPort",
+        "consolePort"
+      ],
+      "properties": {
+        "apiPort": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Host port published for MinIO S3 API.",
+          "maximum": 65535
+        },
+        "consolePort": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Host port published for MinIO console.",
+          "maximum": 65535
+        }
+      },
+      "additionalProperties": false,
+      "description": "Service exposure."
+    }
+  },
+  "additionalProperties": false
+}

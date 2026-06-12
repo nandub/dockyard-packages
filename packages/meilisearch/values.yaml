@@ -1,0 +1,7 @@
+image:
+  repository: getmeili/meilisearch
+  tag: v1.10
+environment: production
+masterKey: ${MEILI_MASTER_KEY:-dockyard-dev-master-key}
+service:
+  port: 7700

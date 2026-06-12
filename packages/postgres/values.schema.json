@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "image",
+    "database",
+    "username",
+    "password"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "PostgreSQL image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "PostgreSQL image tag."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Container image selection."
+    },
+    "database": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Database name created at first initialization."
+    },
+    "username": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Database user created at first initialization."
+    },
+    "password": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Database password. Prefer an environment reference such as ${POSTGRES_PASSWORD}.",
+      "x-dockyard-sensitive": true
+    }
+  },
+  "additionalProperties": false
+}

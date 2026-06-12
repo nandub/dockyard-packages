@@ -1,0 +1,8 @@
+image:
+  repository: minio/minio
+  tag: RELEASE.2024-08-17T01-24-54Z
+rootUser: minioadmin
+rootPassword: ${MINIO_ROOT_PASSWORD:-dockyard-dev-password}
+service:
+  apiPort: 9000
+  consolePort: 9001

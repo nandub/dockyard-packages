@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "image",
+    "adminUser",
+    "adminPassword",
+    "service"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Keycloak image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Keycloak image tag."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Container image selection."
+    },
+    "adminUser": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Bootstrap administrator username."
+    },
+    "adminPassword": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Bootstrap administrator password.",
+      "x-dockyard-sensitive": true
+    },
+    "service": {
+      "type": "object",
+      "required": [
+        "port"
+      ],
+      "properties": {
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Host port published for Keycloak.",
+          "maximum": 65535
+        }
+      },
+      "additionalProperties": false,
+      "description": "Service exposure."
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,10 @@
+# Generated artifacts
+dist/
+*.dockyard.tgz
+SHA256SUMS
+
+# Local secrets and values
+.env
+*.env
+*.local.yaml
+deploy-values/

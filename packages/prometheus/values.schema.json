@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "image",
+    "service",
+    "retention",
+    "scrapeInterval"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Prometheus image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Prometheus image tag."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Container image selection."
+    },
+    "service": {
+      "type": "object",
+      "required": [
+        "port"
+      ],
+      "properties": {
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Host port published for Prometheus.",
+          "maximum": 65535
+        }
+      },
+      "additionalProperties": false,
+      "description": "Service exposure."
+    },
+    "retention": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Prometheus TSDB retention duration such as 15d."
+    },
+    "scrapeInterval": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Default scrape interval such as 15s."
+    }
+  },
+  "additionalProperties": false
+}

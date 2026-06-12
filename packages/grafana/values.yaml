@@ -1,0 +1,9 @@
+image:
+  repository: grafana/grafana
+  tag: 11.2.0
+adminUser: admin
+adminPassword: ${GRAFANA_PASSWORD:-dockyard-dev-password}
+allowSignUp: 'false'
+rootUrl: http://localhost:3000
+service:
+  port: 3000

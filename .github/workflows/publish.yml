@@ -1,0 +1,58 @@
+name: Publish package
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: Package directory under packages/
+        required: true
+        type: string
+      version:
+        description: Package version tag, for example 0.1.0
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Dockyard
+        shell: bash
+        run: |
+          curl -fsSL https://github.com/nandub/dockyard/releases/latest/download/dockyard-linux-amd64 -o /usr/local/bin/dockyard
+          chmod +x /usr/local/bin/dockyard
+          dockyard version
+
+      - name: Install ORAS
+        uses: oras-project/setup-oras@v1
+
+      - name: Login to GHCR
+        run: echo "${{ github.token }}" | oras login ghcr.io --username "${{ github.actor }}" --password-stdin
+
+      - name: Validate input
+        shell: bash
+        run: |
+          test -d "packages/${{ inputs.package }}"
+          test -f "packages/${{ inputs.package }}/Dockyard.yaml"
+
+      - name: Lint and test package
+        run: |
+          dockyard package lint "packages/${{ inputs.package }}" --strict
+          dockyard package test "packages/${{ inputs.package }}" --strict
+
+      - name: Build package archive
+        shell: bash
+        run: |
+          mkdir -p dist
+          dockyard package "packages/${{ inputs.package }}"             -o "dist/${{ inputs.package }}-${{ inputs.version }}.dockyard.tgz"
+
+      - name: Push package
+        shell: bash
+        run: |
+          dockyard push "dist/${{ inputs.package }}-${{ inputs.version }}.dockyard.tgz"             "oci://ghcr.io/nandub/dockyard-packages/${{ inputs.package }}:${{ inputs.version }}"

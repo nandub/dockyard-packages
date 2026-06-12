@@ -1,0 +1,8 @@
+image:
+  repository: rabbitmq
+  tag: 3.13-management-alpine
+username: app
+password: ${RABBITMQ_PASSWORD:-dockyard-dev-password}
+service:
+  amqpPort: 5672
+  managementPort: 15672

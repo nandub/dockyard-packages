@@ -1,0 +1,20 @@
+services:
+  db:
+    image: "${image.repository}:${image.tag}"
+    environment:
+      MARIADB_DATABASE: "${database}"
+      MARIADB_USER: "${username}"
+      MARIADB_PASSWORD: "${password}"
+      MARIADB_ROOT_PASSWORD: "${rootPassword}"
+    volumes:
+      - data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -u${username} -p${password} --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  data:

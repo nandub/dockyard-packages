@@ -1,0 +1,9 @@
+image:
+  repository: traefik
+  tag: v3.1
+service:
+  httpPort: 8080
+  httpsPort: 8443
+dashboard:
+  enabled: false
+  port: 8088

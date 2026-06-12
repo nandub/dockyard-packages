@@ -1,0 +1,16 @@
+services:
+  redis:
+    image: "${image.repository}:${image.tag}"
+    command: ["redis-server", "--appendonly", "${appendOnly}", "--requirepass", "${password}"]
+    volumes:
+      - data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a '${password}' ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  data:

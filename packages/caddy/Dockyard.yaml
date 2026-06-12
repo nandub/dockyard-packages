@@ -1,0 +1,20 @@
+apiVersion: dockyard.dev/v1alpha1
+name: caddy
+description: Caddy web server package with optional public HTTP/HTTPS ports.
+version: 0.1.0
+appVersion: '2.8'
+type: application
+compose:
+  base: compose.yaml
+  overlays: {}
+security:
+  requireNonRoot: false
+  requireHealthchecks: true
+  requireReadOnlyRootFilesystem: false
+  requireNoNewPrivileges: true
+  requireCapDropAll: false
+  disallowPrivileged: true
+  disallowHostNetwork: true
+  disallowDockerSocketMount: true
+  disallowHostPathMounts: true
+  disallowLatestTag: true

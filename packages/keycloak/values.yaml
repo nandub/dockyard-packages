@@ -1,0 +1,7 @@
+image:
+  repository: quay.io/keycloak/keycloak
+  tag: 25.0.4
+adminUser: admin
+adminPassword: ${KEYCLOAK_ADMIN_PASSWORD:-dockyard-dev-password}
+service:
+  port: 8084

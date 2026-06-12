@@ -1,0 +1,18 @@
+services:
+  loki:
+    image: "${image.repository}:${image.tag}"
+    command: ["-config.file=/etc/loki/local-config.yaml"]
+    ports:
+      - "${service.port}:3100"
+    volumes:
+      - data:/loki
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3100/ready >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  data:

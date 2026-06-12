@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "image",
+    "database",
+    "username",
+    "password",
+    "rootPassword"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "MariaDB image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "MariaDB image tag."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Container image selection."
+    },
+    "database": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Database name created at first initialization."
+    },
+    "username": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Database user created at first initialization."
+    },
+    "password": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Database user password.",
+      "x-dockyard-sensitive": true
+    },
+    "rootPassword": {
+      "type": "string",
+      "minLength": 1,
+      "description": "MariaDB root password.",
+      "x-dockyard-sensitive": true
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,35 @@
+services:
+  prometheus:
+    image: "${image.repository}:${image.tag}"
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=${retention}"
+      - "--web.enable-lifecycle"
+    ports:
+      - "${service.port}:9090"
+    volumes:
+      - data:/prometheus
+    configs:
+      - source: prometheus_config
+        target: /etc/prometheus/prometheus.yml
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:9090/-/healthy >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    security_opt:
+      - no-new-privileges:true
+
+configs:
+  prometheus_config:
+    content: |
+      global:
+        scrape_interval: ${scrapeInterval}
+      scrape_configs:
+        - job_name: prometheus
+          static_configs:
+            - targets: ["127.0.0.1:9090"]
+
+volumes:
+  data:

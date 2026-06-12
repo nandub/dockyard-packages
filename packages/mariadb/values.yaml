@@ -1,0 +1,7 @@
+image:
+  repository: mariadb
+  tag: '11.4'
+database: app
+username: app
+password: ${MARIADB_PASSWORD:-dockyard-dev-password}
+rootPassword: ${MARIADB_ROOT_PASSWORD:-dockyard-dev-root-password}

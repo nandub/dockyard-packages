@@ -1,0 +1,23 @@
+services:
+  alloy:
+    image: "${image.repository}:${image.tag}"
+    command: ["run", "/etc/alloy/config.alloy", "--server.http.listen-addr=0.0.0.0:12345"]
+    ports:
+      - "${service.port}:12345"
+    configs:
+      - source: alloy_config
+        target: /etc/alloy/config.alloy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:12345/-/healthy >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    security_opt:
+      - no-new-privileges:true
+
+configs:
+  alloy_config:
+    content: |
+      logging {
+        level = "${logLevel}"
+      }

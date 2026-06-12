@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "image",
+    "appendOnly",
+    "password"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Redis image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Redis image tag."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Container image selection."
+    },
+    "appendOnly": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Redis appendonly setting: yes or no."
+    },
+    "password": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Redis password. Prefer ${REDIS_PASSWORD}.",
+      "x-dockyard-sensitive": true
+    }
+  },
+  "additionalProperties": false
+}

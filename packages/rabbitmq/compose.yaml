@@ -1,0 +1,21 @@
+services:
+  rabbitmq:
+    image: "${image.repository}:${image.tag}"
+    environment:
+      RABBITMQ_DEFAULT_USER: "${username}"
+      RABBITMQ_DEFAULT_PASS: "${password}"
+    volumes:
+      - data:/var/lib/rabbitmq
+    ports:
+      - "${service.amqpPort}:5672"
+      - "${service.managementPort}:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  data:

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "image",
+    "username",
+    "password",
+    "service"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "RabbitMQ image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "RabbitMQ image tag."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Container image selection."
+    },
+    "username": {
+      "type": "string",
+      "minLength": 1,
+      "description": "RabbitMQ default username."
+    },
+    "password": {
+      "type": "string",
+      "minLength": 1,
+      "description": "RabbitMQ default password.",
+      "x-dockyard-sensitive": true
+    },
+    "service": {
+      "type": "object",
+      "required": [
+        "amqpPort",
+        "managementPort"
+      ],
+      "properties": {
+        "amqpPort": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Host port published for AMQP.",
+          "maximum": 65535
+        },
+        "managementPort": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Host port published for management UI.",
+          "maximum": 65535
+        }
+      },
+      "additionalProperties": false,
+      "description": "Service exposure."
+    }
+  },
+  "additionalProperties": false
+}

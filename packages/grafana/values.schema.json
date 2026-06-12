@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "image",
+    "adminUser",
+    "adminPassword",
+    "allowSignUp",
+    "rootUrl",
+    "service"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Grafana image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Grafana image tag."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Container image selection."
+    },
+    "adminUser": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Grafana administrator username."
+    },
+    "adminPassword": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Grafana administrator password.",
+      "x-dockyard-sensitive": true
+    },
+    "allowSignUp": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Whether anonymous users can sign up. Use false for most deployments."
+    },
+    "rootUrl": {
+      "type": "string",
+      "minLength": 1,
+      "description": "External root URL used by Grafana."
+    },
+    "service": {
+      "type": "object",
+      "required": [
+        "port"
+      ],
+      "properties": {
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Host port published for Grafana.",
+          "maximum": 65535
+        }
+      },
+      "additionalProperties": false,
+      "description": "Service exposure."
+    }
+  },
+  "additionalProperties": false
+}

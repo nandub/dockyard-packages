@@ -1,0 +1,6 @@
+image:
+  repository: nats
+  tag: 2.10-alpine
+service:
+  clientPort: 4222
+  monitorPort: 8222

@@ -1,0 +1,6 @@
+image:
+  repository: adminer
+  tag: 4.8.1
+defaultServer: db
+service:
+  port: 8082

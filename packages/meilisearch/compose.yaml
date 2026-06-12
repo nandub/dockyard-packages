@@ -1,0 +1,20 @@
+services:
+  meilisearch:
+    image: "${image.repository}:${image.tag}"
+    environment:
+      MEILI_ENV: "${environment}"
+      MEILI_MASTER_KEY: "${masterKey}"
+    volumes:
+      - data:/meili_data
+    ports:
+      - "${service.port}:7700"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:7700/health >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  data:

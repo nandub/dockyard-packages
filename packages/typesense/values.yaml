@@ -1,0 +1,6 @@
+image:
+  repository: typesense/typesense
+  tag: '27.1'
+apiKey: ${TYPESENSE_API_KEY:-dockyard-dev-api-key}
+service:
+  port: 8108

@@ -1,0 +1,25 @@
+name: Verify packages
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Dockyard
+        shell: bash
+        run: |
+          curl -fsSL https://github.com/nandub/dockyard/releases/latest/download/dockyard-linux-amd64 -o /usr/local/bin/dockyard
+          chmod +x /usr/local/bin/dockyard
+          dockyard version
+
+      - name: Verify packages
+        run: ./scripts/verify.sh

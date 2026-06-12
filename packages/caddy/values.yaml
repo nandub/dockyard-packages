@@ -1,0 +1,6 @@
+image:
+  repository: caddy
+  tag: 2.8-alpine
+service:
+  httpPort: 8080
+  httpsPort: 8443

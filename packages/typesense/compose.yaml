@@ -1,0 +1,18 @@
+services:
+  typesense:
+    image: "${image.repository}:${image.tag}"
+    command: ["--data-dir", "/data", "--api-key", "${apiKey}", "--enable-cors"]
+    volumes:
+      - data:/data
+    ports:
+      - "${service.port}:8108"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8108/health >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  data:

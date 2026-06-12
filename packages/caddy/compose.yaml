@@ -1,0 +1,21 @@
+services:
+  caddy:
+    image: "${image.repository}:${image.tag}"
+    ports:
+      - "${service.httpPort}:80"
+      - "${service.httpsPort}:443"
+    volumes:
+      - data:/data
+      - config:/config
+    command: ["caddy", "file-server", "--listen", ":80", "--root", "/usr/share/caddy"]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/ >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  data:
+  config:

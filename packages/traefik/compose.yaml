@@ -1,0 +1,19 @@
+services:
+  traefik:
+    image: "${image.repository}:${image.tag}"
+    command:
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--api.dashboard=${dashboard.enabled}"
+      - "--ping=true"
+    ports:
+      - "${service.httpPort}:80"
+      - "${service.httpsPort}:443"
+      - "${dashboard.port}:8080"
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    security_opt:
+      - no-new-privileges:true

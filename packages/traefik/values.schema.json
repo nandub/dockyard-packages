@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "image",
+    "service",
+    "dashboard"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Traefik image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Traefik image tag."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Container image selection."
+    },
+    "service": {
+      "type": "object",
+      "required": [
+        "httpPort",
+        "httpsPort"
+      ],
+      "properties": {
+        "httpPort": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Host port published for HTTP.",
+          "maximum": 65535
+        },
+        "httpsPort": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Host port published for HTTPS.",
+          "maximum": 65535
+        }
+      },
+      "additionalProperties": false,
+      "description": "Service exposure."
+    },
+    "dashboard": {
+      "type": "object",
+      "required": [
+        "enabled",
+        "port"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable the Traefik dashboard API. Keep disabled unless protected by network controls."
+        },
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Host port for dashboard when enabled.",
+          "maximum": 65535
+        }
+      },
+      "additionalProperties": false,
+      "description": "Dashboard settings."
+    }
+  },
+  "additionalProperties": false
+}

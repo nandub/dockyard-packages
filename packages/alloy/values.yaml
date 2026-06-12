@@ -1,0 +1,6 @@
+image:
+  repository: grafana/alloy
+  tag: v1.3.1
+service:
+  port: 12345
+logLevel: info
