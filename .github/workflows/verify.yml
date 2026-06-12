@@ -22,4 +22,4 @@ jobs:
           dockyard version
 
       - name: Verify packages
-        run: ./scripts/verify.sh
+        run: bash ./scripts/verify.sh
