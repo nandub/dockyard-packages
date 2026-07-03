@@ -1,6 +1,7 @@
 # Generated artifacts
 dist/
 *.dockyard.tgz
+*.zip
 SHA256SUMS
 
 # Local secrets and values
