@@ -1,25 +1,63 @@
-# redis
+# Redis
 
-Reusable Redis cache package.
+Redis-compatible in-memory data store with production-oriented Docker Compose defaults.
 
-This is a reusable Dockyard package intended for the `dockyard-packages` catalog.
+## What this package provides
 
-## Usage
+- Named volume mounted at `/data`.
+- AOF persistence enabled with `appendfsync everysec`.
+- RDB snapshots enabled for fast snapshot-style backups.
+- Password authentication enabled by default through `requirepass`.
+- Loopback-only published port by default.
+- Redis health check using authenticated `redis-cli ping`.
+- Redis `maxmemory` and eviction policy configuration.
+- Docker memory limit/reservation values.
+- `no-new-privileges:true` container hardening.
+- Destructive/admin commands `FLUSHALL`, `FLUSHDB`, and `CONFIG` disabled by default.
+
+## Install
 
 ```powershell
-dockyard package lint .\packages\redis --strict
-dockyard package test .\packages\redis --strict
-dockyard install redis .\packages\redis
+dockyard install redis
 ```
 
-For production, review `values.yaml`, provide secret values through environment variables or an external values file, and avoid committing real credentials.
+Or pin this version explicitly:
 
-## Security notes
+```powershell
+dockyard install redis catalog://redis:0.2.0
+```
 
-- Images are pinned to non-`latest` tags.
-- Services include health checks where the upstream image supports them.
-- Host networking and privileged containers are disabled by policy.
-- Named volumes are used instead of host path mounts.
-- Secrets in `values.schema.json` are marked with `x-dockyard-sensitive`.
+## Values
 
+Override the default password before deployment:
 
+```yaml
+auth:
+  password: "replace-with-a-long-random-password"
+```
+
+The default port binding is loopback-only:
+
+```yaml
+service:
+  bindHost: 127.0.0.1
+  port: 6379
+```
+
+Do not expose Redis directly to the internet. Use a private Docker network, VPN, SSH tunnel, or trusted internal network path.
+
+## Persistence
+
+Redis data is stored in the named Docker volume `redis-data` at `/data`. This package enables both AOF and RDB persistence:
+
+- AOF reduces expected data loss to roughly the configured fsync interval.
+- RDB snapshots provide compact point-in-time files that are useful for backup/restore workflows.
+
+## Backup example
+
+```powershell
+docker exec redis redis-cli -a "<password>" BGSAVE
+docker run --rm -v redis_redis-data:/data:ro -v ${PWD}:/backup alpine tar czf /backup/redis-data-backup.tar.gz -C /data .
+```
+
+Test restores regularly. Persistence is not a substitute for independent backups.

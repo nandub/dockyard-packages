@@ -1,14 +1,20 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "Redis package values",
   "type": "object",
+  "additionalProperties": false,
   "required": [
     "image",
-    "appendOnly",
-    "password"
+    "service",
+    "auth",
+    "memory",
+    "resources",
+    "healthcheck"
   ],
   "properties": {
     "image": {
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "repository",
         "tag"
@@ -17,28 +23,146 @@
         "repository": {
           "type": "string",
           "minLength": 1,
-          "description": "Redis image repository."
+          "description": "Container image repository used for Redis."
         },
         "tag": {
           "type": "string",
           "minLength": 1,
-          "description": "Redis image tag."
+          "description": "Container image tag. Pin this to a tested Redis image version."
         }
-      },
+      }
+    },
+    "service": {
+      "type": "object",
       "additionalProperties": false,
-      "description": "Container image selection."
+      "required": [
+        "bindHost",
+        "port",
+        "restart"
+      ],
+      "properties": {
+        "bindHost": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Host interface used for the published Redis port. Defaults to loopback to avoid public exposure."
+        },
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "Host port mapped to Redis container port 6379."
+        },
+        "restart": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Docker Compose restart policy for the Redis service."
+        }
+      }
     },
-    "appendOnly": {
-      "type": "string",
-      "minLength": 1,
-      "description": "Redis appendonly setting: yes or no."
+    "auth": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "password"
+      ],
+      "properties": {
+        "password": {
+          "type": "string",
+          "minLength": 12,
+          "description": "Redis password used by requirepass and health checks. Replace the default before deployment.",
+          "x-dockyard-sensitive": true
+        }
+      }
     },
-    "password": {
-      "type": "string",
-      "minLength": 1,
-      "description": "Redis password. Prefer ${REDIS_PASSWORD}.",
-      "x-dockyard-sensitive": true
+    "memory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxmemory",
+        "policy"
+      ],
+      "properties": {
+        "maxmemory": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Redis maxmemory setting used to begin evicting keys before the container limit is reached."
+        },
+        "policy": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Redis maxmemory-policy value, such as allkeys-lru for cache-style workloads."
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "limits",
+        "reservations"
+      ],
+      "properties": {
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Docker memory limit for the Redis container."
+            }
+          }
+        },
+        "reservations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Docker memory reservation for the Redis container."
+            }
+          }
+        }
+      }
+    },
+    "healthcheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interval",
+        "timeout",
+        "retries",
+        "startPeriod"
+      ],
+      "properties": {
+        "interval": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check interval."
+        },
+        "timeout": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check timeout."
+        },
+        "retries": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of health check retries before Redis is considered unhealthy."
+        },
+        "startPeriod": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Initial grace period before health check failures count."
+        }
+      }
     }
-  },
-  "additionalProperties": false
+  }
 }

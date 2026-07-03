@@ -1,5 +1,27 @@
 image:
   repository: redis
   tag: 7.4-alpine
-appendOnly: 'yes'
-password: ${REDIS_PASSWORD:-dockyard-dev-password}
+
+service:
+  bindHost: 127.0.0.1
+  port: 6379
+  restart: unless-stopped
+
+auth:
+  password: change-me-redis-password
+
+memory:
+  maxmemory: 512mb
+  policy: allkeys-lru
+
+resources:
+  limits:
+    memory: 768M
+  reservations:
+    memory: 256M
+
+healthcheck:
+  interval: 10s
+  timeout: 5s
+  retries: 5
+  startPeriod: 30s

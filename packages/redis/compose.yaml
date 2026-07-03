@@ -1,16 +1,46 @@
 services:
   redis:
-    image: "${image.repository}:${image.tag}"
-    command: ["redis-server", "--appendonly", "${appendOnly}", "--requirepass", "${password}"]
+    image: ${image.repository}:${image.tag}
+    restart: ${service.restart}
+    command:
+      - redis-server
+      - /usr/local/etc/redis/redis.conf
+      - --requirepass
+      - ${auth.password}
+      - --maxmemory
+      - ${memory.maxmemory}
+      - --maxmemory-policy
+      - ${memory.policy}
+    ports:
+      - "${service.bindHost}:${service.port}:6379"
     volumes:
-      - data:/data
+      - redis-data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf:ro
     healthcheck:
-      test: ["CMD-SHELL", "redis-cli -a '${password}' ping | grep PONG"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test:
+        - CMD
+        - redis-cli
+        - -a
+        - ${auth.password}
+        - ping
+      interval: ${healthcheck.interval}
+      timeout: ${healthcheck.timeout}
+      retries: ${healthcheck.retries}
+      start_period: ${healthcheck.startPeriod}
     security_opt:
       - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: ${resources.limits.memory}
+        reservations:
+          memory: ${resources.reservations.memory}
+    networks:
+      - redis
 
 volumes:
-  data:
+  redis-data:
+
+networks:
+  redis:
+    driver: bridge
