@@ -107,3 +107,6 @@ These packages are starters. Before production:
 4. Review exposed ports.
 5. Run `dockyard package lint --strict` and `dockyard package test --strict`.
 6. Publish package archives to a registry you control.
+
+
+MongoDB is included as an authentication-enabled, persistent, single-node replica set starter package.

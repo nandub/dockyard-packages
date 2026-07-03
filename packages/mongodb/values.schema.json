@@ -1,0 +1,179 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "MongoDB Dockyard values",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "default": "mongo",
+          "description": "MongoDB container image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "default": "7.0",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+          "description": "MongoDB container image tag. Pin to a supported non-latest tag."
+        }
+      },
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "description": "Container image settings."
+    },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bindHost": {
+          "type": "string",
+          "minLength": 1,
+          "default": "127.0.0.1",
+          "description": "Host interface used for the published MongoDB port. Defaults to loopback only."
+        },
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535,
+          "default": 27017,
+          "description": "Host port published to MongoDB port 27017."
+        },
+        "restart": {
+          "type": "string",
+          "enum": [
+            "no",
+            "always",
+            "on-failure",
+            "unless-stopped"
+          ],
+          "default": "unless-stopped",
+          "description": "Docker Compose restart policy for the MongoDB service."
+        }
+      },
+      "required": [
+        "bindHost",
+        "port",
+        "restart"
+      ],
+      "description": "Published service and restart settings."
+    },
+    "auth": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rootUsername": {
+          "type": "string",
+          "minLength": 1,
+          "default": "root",
+          "description": "Initial MongoDB root username created on first initialization of an empty data volume."
+        },
+        "rootPassword": {
+          "type": "string",
+          "minLength": 12,
+          "default": "change-me-in-values",
+          "x-dockyard-sensitive": true,
+          "description": "Initial MongoDB root password created on first initialization of an empty data volume."
+        }
+      },
+      "required": [
+        "rootUsername",
+        "rootPassword"
+      ],
+      "description": "Initial root authentication settings."
+    },
+    "database": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "default": "app",
+          "pattern": "^[A-Za-z0-9_-]+$",
+          "description": "Initial application database name created during first initialization."
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "description": "Initial database settings."
+    },
+    "replicaSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "default": "rs0",
+          "pattern": "^[A-Za-z0-9._-]+$",
+          "description": "MongoDB replica set name used for transactions and change streams."
+        },
+        "host": {
+          "type": "string",
+          "minLength": 1,
+          "default": "mongodb:27017",
+          "description": "Host:port advertised in the single-node replica set configuration."
+        }
+      },
+      "required": [
+        "name",
+        "host"
+      ],
+      "description": "Single-node replica set settings."
+    },
+    "healthcheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "interval": {
+          "type": "string",
+          "minLength": 1,
+          "default": "10s",
+          "description": "Interval between MongoDB health checks."
+        },
+        "timeout": {
+          "type": "string",
+          "minLength": 1,
+          "default": "10s",
+          "description": "Maximum time allowed for each MongoDB health check."
+        },
+        "startPeriod": {
+          "type": "string",
+          "minLength": 1,
+          "default": "20s",
+          "description": "Startup grace period before health check failures count."
+        },
+        "retries": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60,
+          "default": 12,
+          "description": "Number of health check failures allowed before the service is marked unhealthy."
+        }
+      },
+      "required": [
+        "interval",
+        "timeout",
+        "startPeriod",
+        "retries"
+      ],
+      "description": "MongoDB health check and replica-set auto-init settings."
+    }
+  },
+  "required": [
+    "image",
+    "service",
+    "auth",
+    "database",
+    "replicaSet",
+    "healthcheck"
+  ]
+}

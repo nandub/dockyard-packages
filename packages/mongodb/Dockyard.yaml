@@ -1,0 +1,20 @@
+apiVersion: dockyard.dev/v1alpha1
+name: mongodb
+description: MongoDB document database with authentication, persistence, and a single-node replica set.
+version: 0.1.0
+appVersion: "7.0"
+type: application
+compose:
+  base: compose.yaml
+  overlays: {}
+security:
+  requireNonRoot: false
+  requireHealthchecks: true
+  requireReadOnlyRootFilesystem: false
+  requireNoNewPrivileges: true
+  requireCapDropAll: false
+  disallowPrivileged: true
+  disallowHostNetwork: true
+  disallowDockerSocketMount: true
+  disallowHostPathMounts: true
+  disallowLatestTag: true

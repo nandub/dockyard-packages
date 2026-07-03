@@ -11,6 +11,7 @@
 | `mariadb` | `11.4` | Reusable MariaDB database package. |
 | `meilisearch` | `1.10` | Meilisearch search engine package. |
 | `minio` | `RELEASE.2024-08-17T01-24-54Z` | MinIO object storage package. |
+| `mongodb` | `7.0` | MongoDB document database with authentication, persistence, and single-node replica set support. |
 | `nats` | `2.10` | NATS server package with monitoring port. |
 | `nginx` | `1.27` | Minimal NGINX static web server package. |
 | `pgadmin` | `8.12` | pgAdmin web UI package. |

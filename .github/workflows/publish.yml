@@ -56,3 +56,7 @@ jobs:
         shell: bash
         run: |
           dockyard push "dist/${{ inputs.package }}-${{ inputs.version }}.dockyard.tgz"             "oci://ghcr.io/nandub/dockyard-packages/${{ inputs.package }}:${{ inputs.version }}"
+
+      - name: Push catalog index
+        shell: bash
+        run: ./scripts/publish-catalog.sh

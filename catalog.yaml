@@ -1,0 +1,123 @@
+apiVersion: dockyard.dev/catalog/v1alpha1
+registry: ghcr.io/nandub/dockyard-packages
+packages:
+  - name: adminer
+    latest: 0.1.0
+    description: Lightweight database administration UI.
+    source: oci://ghcr.io/nandub/dockyard-packages/adminer
+    versions:
+      - 0.1.0
+  - name: alloy
+    latest: 0.1.0
+    description: Grafana Alloy telemetry collector.
+    source: oci://ghcr.io/nandub/dockyard-packages/alloy
+    versions:
+      - 0.1.0
+  - name: caddy
+    latest: 0.1.0
+    description: Caddy web server and reverse proxy.
+    source: oci://ghcr.io/nandub/dockyard-packages/caddy
+    versions:
+      - 0.1.0
+  - name: grafana
+    latest: 0.1.0
+    description: Grafana dashboards and visualization.
+    source: oci://ghcr.io/nandub/dockyard-packages/grafana
+    versions:
+      - 0.1.0
+  - name: keycloak
+    latest: 0.1.0
+    description: Identity and access management service.
+    source: oci://ghcr.io/nandub/dockyard-packages/keycloak
+    versions:
+      - 0.1.0
+  - name: loki
+    latest: 0.1.0
+    description: Grafana Loki log aggregation.
+    source: oci://ghcr.io/nandub/dockyard-packages/loki
+    versions:
+      - 0.1.0
+  - name: mariadb
+    latest: 0.1.0
+    description: MariaDB relational database.
+    source: oci://ghcr.io/nandub/dockyard-packages/mariadb
+    versions:
+      - 0.1.0
+  - name: meilisearch
+    latest: 0.1.0
+    description: Meilisearch search engine.
+    source: oci://ghcr.io/nandub/dockyard-packages/meilisearch
+    versions:
+      - 0.1.0
+  - name: minio
+    latest: 0.1.0
+    description: S3-compatible object storage.
+    source: oci://ghcr.io/nandub/dockyard-packages/minio
+    versions:
+      - 0.1.0
+  - name: mongodb
+    latest: 0.1.0
+    description: MongoDB document database with authentication, persistence, and single-node replica set support.
+    source: oci://ghcr.io/nandub/dockyard-packages/mongodb
+    versions:
+      - 0.1.0
+  - name: nats
+    latest: 0.1.0
+    description: NATS messaging server.
+    source: oci://ghcr.io/nandub/dockyard-packages/nats
+    versions:
+      - 0.1.0
+  - name: nginx
+    latest: 0.1.0
+    description: Nginx web server.
+    source: oci://ghcr.io/nandub/dockyard-packages/nginx
+    versions:
+      - 0.1.0
+  - name: pgadmin
+    latest: 0.1.0
+    description: pgAdmin PostgreSQL administration UI.
+    source: oci://ghcr.io/nandub/dockyard-packages/pgadmin
+    versions:
+      - 0.1.0
+  - name: postgres
+    latest: 0.1.0
+    description: PostgreSQL relational database.
+    source: oci://ghcr.io/nandub/dockyard-packages/postgres
+    versions:
+      - 0.1.0
+  - name: prometheus
+    latest: 0.1.0
+    description: Prometheus metrics server.
+    source: oci://ghcr.io/nandub/dockyard-packages/prometheus
+    versions:
+      - 0.1.0
+  - name: rabbitmq
+    latest: 0.1.0
+    description: RabbitMQ message broker.
+    source: oci://ghcr.io/nandub/dockyard-packages/rabbitmq
+    versions:
+      - 0.1.0
+  - name: redis
+    latest: 0.1.0
+    description: Redis-compatible in-memory data store.
+    source: oci://ghcr.io/nandub/dockyard-packages/redis
+    versions:
+      - 0.1.0
+  - name: traefik
+    latest: 0.1.0
+    description: Traefik reverse proxy.
+    source: oci://ghcr.io/nandub/dockyard-packages/traefik
+    versions:
+      - 0.1.0
+  - name: typesense
+    latest: 0.1.0
+    description: Typesense search engine.
+    source: oci://ghcr.io/nandub/dockyard-packages/typesense
+    versions:
+      - 0.1.0
+  - name: uptime-kuma
+    latest: 0.1.0
+    description: Uptime Kuma monitoring dashboard.
+    source: oci://ghcr.io/nandub/dockyard-packages/uptime-kuma
+    versions:
+      - 0.1.0

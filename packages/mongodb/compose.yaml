@@ -1,0 +1,33 @@
+services:
+  mongodb:
+    image: "${image.repository}:${image.tag}"
+    restart: "${service.restart}"
+    security_opt:
+      - no-new-privileges:true
+    command:
+      - mongod
+      - --replSet
+      - "${replicaSet.name}"
+      - --bind_ip_all
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${auth.rootUsername}"
+      MONGO_INITDB_ROOT_PASSWORD: "${auth.rootPassword}"
+      MONGO_INITDB_DATABASE: "${database.name}"
+    ports:
+      - "${service.bindHost}:${service.port}:27017"
+    volumes:
+      - mongodb-data:/data/db
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >
+          mongosh --quiet --username "${auth.rootUsername}" --password "${auth.rootPassword}" --authenticationDatabase admin
+          --eval "try { rs.status().ok } catch (err) { rs.initiate({_id:'${replicaSet.name}',members:[{_id:0,host:'${replicaSet.host}'}]}).ok }" | grep 1
+      interval: "${healthcheck.interval}"
+      timeout: "${healthcheck.timeout}"
+      start_period: "${healthcheck.startPeriod}"
+      retries: ${healthcheck.retries}
+
+volumes:
+  mongodb-data:
+    driver: local

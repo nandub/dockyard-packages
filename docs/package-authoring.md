@@ -49,3 +49,21 @@ Push:
 dockyard push ./dist/postgres-0.1.0.dockyard.tgz \
   oci://ghcr.io/nandub/dockyard-packages/postgres:0.1.0
 ```
+
+
+## Catalog metadata
+
+Every published package should have an entry in the repository root `catalog.yaml`.
+
+Required fields:
+
+```yaml
+- name: mongodb
+  latest: 0.1.0
+  description: MongoDB document database with authentication, persistence, and single-node replica set support.
+  source: oci://ghcr.io/nandub/dockyard-packages/mongodb
+  versions:
+    - 0.1.0
+```
+
+Do not require a Dockyard CLI release for ordinary catalog package additions. Publish the package artifact, update `catalog.yaml`, and publish the catalog index artifact.

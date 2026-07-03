@@ -36,3 +36,33 @@ The publish workflow is manual and requires:
 - `version`: version tag, for example `0.1.0`
 
 It builds the archive and pushes it with Dockyard.
+
+
+## Catalog index publish
+
+After adding or updating packages, update `catalog.yaml` and publish it as a separate OCI artifact:
+
+```powershell
+.\scripts\publish-catalog.ps1
+```
+
+The default target is:
+
+```text
+ghcr.io/nandub/dockyard-packages/catalog:latest
+```
+
+Override with:
+
+```powershell
+$env:DOCKYARD_CATALOG_PUBLISH_REF = "ghcr.io/my-org/dockyard-packages/catalog:latest"
+.\scripts\publish-catalog.ps1
+```
+
+Dockyard users consume the index with:
+
+```powershell
+$env:DOCKYARD_CATALOG = "oci://ghcr.io/nandub/dockyard-packages/catalog:latest"
+dockyard catalog list
+dockyard install mongodb
+```

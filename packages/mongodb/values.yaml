@@ -1,0 +1,27 @@
+image:
+  repository: mongo
+  tag: "7.0"
+
+service:
+  bindHost: "127.0.0.1"
+  port: 27017
+  restart: unless-stopped
+
+auth:
+  rootUsername: root
+  rootPassword: change-me-in-values
+
+database:
+  name: app
+
+replicaSet:
+  name: rs0
+  # Use mongodb:27017 for applications on the same Compose network.
+  # Use localhost:27017 only when host-machine clients are the primary consumers.
+  host: mongodb:27017
+
+healthcheck:
+  interval: 10s
+  timeout: 10s
+  startPeriod: 20s
+  retries: 12

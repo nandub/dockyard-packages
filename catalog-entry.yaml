@@ -1,0 +1,6 @@
+mongodb:
+  latest: 0.1.0
+  versions:
+    - 0.1.0
+  source: oci://ghcr.io/nandub/dockyard-packages/mongodb
+  description: MongoDB document database with authentication and a single-node replica set.
