@@ -1,0 +1,10 @@
+apiVersion: dockyard.dev/v1alpha1
+name: opensearch
+version: 0.1.0
+description: OpenSearch search and analytics engine with Dashboards, persistence, security demo configuration, and resource controls.
+compose:
+  base: compose.yaml
+  overlays: {}
+values:
+  default: values.yaml
+schema: values.schema.json

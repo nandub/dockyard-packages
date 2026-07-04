@@ -1,0 +1,52 @@
+image:
+  repository: opensearchproject/opensearch
+  tag: "3"
+
+dashboards:
+  image:
+    repository: opensearchproject/opensearch-dashboards
+    tag: "3"
+  service:
+    bindHost: 127.0.0.1
+    port: 5601
+    restart: unless-stopped
+  resources:
+    limits:
+      memory: 1G
+    reservations:
+      memory: 512M
+  healthcheck:
+    interval: 30s
+    timeout: 10s
+    retries: 10
+    startPeriod: 90s
+
+service:
+  bindHost: 127.0.0.1
+  httpPort: 9200
+  performanceAnalyzerPort: 9600
+  restart: unless-stopped
+
+cluster:
+  name: opensearch-cluster
+
+auth:
+  initialAdminPassword: Change-OpenSearch-Admin-9274!zPq
+
+java:
+  heap: 512m
+
+ulimits:
+  nofile: 65536
+
+resources:
+  limits:
+    memory: 2G
+  reservations:
+    memory: 1G
+
+healthcheck:
+  interval: 30s
+  timeout: 10s
+  retries: 10
+  startPeriod: 90s

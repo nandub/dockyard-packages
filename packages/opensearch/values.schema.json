@@ -1,0 +1,330 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "OpenSearch package values",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "image",
+    "dashboards",
+    "service",
+    "cluster",
+    "auth",
+    "java",
+    "ulimits",
+    "resources",
+    "healthcheck"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "OpenSearch container image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "OpenSearch image tag. Use a pinned major/minor/patch tag rather than latest."
+        }
+      }
+    },
+    "dashboards": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "image",
+        "service",
+        "resources",
+        "healthcheck"
+      ],
+      "properties": {
+        "image": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "repository",
+            "tag"
+          ],
+          "properties": {
+            "repository": {
+              "type": "string",
+              "minLength": 1,
+              "description": "OpenSearch Dashboards container image repository."
+            },
+            "tag": {
+              "type": "string",
+              "minLength": 1,
+              "description": "OpenSearch Dashboards image tag. Keep this aligned with the OpenSearch image tag."
+            }
+          }
+        },
+        "service": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "bindHost",
+            "port",
+            "restart"
+          ],
+          "properties": {
+            "bindHost": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Host interface for the OpenSearch Dashboards port binding. Defaults to loopback."
+            },
+            "port": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535,
+              "description": "Host port for OpenSearch Dashboards."
+            },
+            "restart": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Docker Compose restart policy for OpenSearch Dashboards."
+            }
+          }
+        },
+        "resources": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "limits",
+            "reservations"
+          ],
+          "properties": {
+            "limits": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "memory"
+              ],
+              "properties": {
+                "memory": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Docker memory limit for OpenSearch Dashboards."
+                }
+              }
+            },
+            "reservations": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "memory"
+              ],
+              "properties": {
+                "memory": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Docker memory reservation for OpenSearch Dashboards."
+                }
+              }
+            }
+          }
+        },
+        "healthcheck": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "interval",
+            "timeout",
+            "retries",
+            "startPeriod"
+          ],
+          "properties": {
+            "interval": {
+              "type": "string",
+              "minLength": 1,
+              "description": "OpenSearch Dashboards health check interval."
+            },
+            "timeout": {
+              "type": "string",
+              "minLength": 1,
+              "description": "OpenSearch Dashboards health check timeout."
+            },
+            "retries": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "OpenSearch Dashboards health check retry count."
+            },
+            "startPeriod": {
+              "type": "string",
+              "minLength": 1,
+              "description": "OpenSearch Dashboards health check startup grace period."
+            }
+          }
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bindHost",
+        "httpPort",
+        "performanceAnalyzerPort",
+        "restart"
+      ],
+      "properties": {
+        "bindHost": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Host interface for OpenSearch API and Performance Analyzer port bindings. Defaults to loopback."
+        },
+        "httpPort": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "Host port for the OpenSearch REST API."
+        },
+        "performanceAnalyzerPort": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "Host port for the OpenSearch Performance Analyzer endpoint."
+        },
+        "restart": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Docker Compose restart policy for OpenSearch."
+        }
+      }
+    },
+    "cluster": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "OpenSearch cluster name."
+        }
+      }
+    },
+    "auth": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "initialAdminPassword"
+      ],
+      "properties": {
+        "initialAdminPassword": {
+          "type": "string",
+          "minLength": 12,
+          "maxLength": 100,
+          "description": "Initial OpenSearch admin password used by the demo security configuration on first start.",
+          "x-dockyard-sensitive": true
+        }
+      }
+    },
+    "java": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "heap"
+      ],
+      "properties": {
+        "heap": {
+          "type": "string",
+          "minLength": 1,
+          "description": "OpenSearch JVM heap size used for both Xms and Xmx."
+        }
+      }
+    },
+    "ulimits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "nofile"
+      ],
+      "properties": {
+        "nofile": {
+          "type": "integer",
+          "minimum": 65536,
+          "description": "Open file descriptor limit for the OpenSearch process."
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "limits",
+        "reservations"
+      ],
+      "properties": {
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Docker memory limit for OpenSearch."
+            }
+          }
+        },
+        "reservations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Docker memory reservation for OpenSearch."
+            }
+          }
+        }
+      }
+    },
+    "healthcheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interval",
+        "timeout",
+        "retries",
+        "startPeriod"
+      ],
+      "properties": {
+        "interval": {
+          "type": "string",
+          "minLength": 1,
+          "description": "OpenSearch health check interval."
+        },
+        "timeout": {
+          "type": "string",
+          "minLength": 1,
+          "description": "OpenSearch health check timeout."
+        },
+        "retries": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "OpenSearch health check retry count."
+        },
+        "startPeriod": {
+          "type": "string",
+          "minLength": 1,
+          "description": "OpenSearch health check startup grace period."
+        }
+      }
+    }
+  }
+}
