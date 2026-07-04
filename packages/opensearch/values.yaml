@@ -31,7 +31,7 @@ cluster:
   name: opensearch-cluster
 
 auth:
-  initialAdminPassword: Change-OpenSearch-Admin-9274!zPq
+  initialAdminPassword: Violet-River-Quartz-9187!Nebula
 
 java:
   heap: 512m

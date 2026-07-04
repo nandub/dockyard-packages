@@ -62,10 +62,12 @@ packages:
     source: oci://ghcr.io/nandub/dockyard-packages/nginx
     versions: [0.1.0]
   - name: opensearch
-    latest: 0.1.0
+    latest: 0.1.1
     description: OpenSearch search and analytics engine with Dashboards, persistence, security bootstrap, and resource controls.
     source: oci://ghcr.io/nandub/dockyard-packages/opensearch
-    versions: [0.1.0]
+    versions:
+      - 0.1.0
+      - 0.1.1
   - name: pgadmin
     latest: 0.1.0
     description: pgAdmin PostgreSQL administration UI.
