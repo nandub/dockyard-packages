@@ -1,0 +1,159 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "searxng values",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "image",
+    "service",
+    "app",
+    "resources",
+    "healthcheck"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "description": "Container image settings.",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "description": "SearXNG image repository."
+        },
+        "tag": {
+          "type": "string",
+          "description": "Pinned SearXNG image tag."
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "description": "Published service settings.",
+      "additionalProperties": false,
+      "required": [
+        "bindHost",
+        "port",
+        "restart"
+      ],
+      "properties": {
+        "bindHost": {
+          "type": "string",
+          "description": "Host interface to bind SearXNG to."
+        },
+        "port": {
+          "type": "integer",
+          "description": "Host port for SearXNG.",
+          "default": 8080,
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "restart": {
+          "type": "string",
+          "description": "Compose restart policy."
+        }
+      }
+    },
+    "app": {
+      "type": "object",
+      "description": "SearXNG application settings.",
+      "additionalProperties": false,
+      "required": [
+        "baseUrl",
+        "workers",
+        "threads"
+      ],
+      "properties": {
+        "baseUrl": {
+          "type": "string",
+          "description": "Base URL advertised by the SearXNG instance."
+        },
+        "workers": {
+          "type": "integer",
+          "description": "uWSGI worker count.",
+          "default": 4,
+          "minimum": 1
+        },
+        "threads": {
+          "type": "integer",
+          "description": "uWSGI threads per worker.",
+          "default": 4,
+          "minimum": 1
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "description": "Container resource settings.",
+      "additionalProperties": false,
+      "required": [
+        "limits",
+        "reservations"
+      ],
+      "properties": {
+        "limits": {
+          "type": "object",
+          "description": "Resource limits.",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "description": "Maximum container memory."
+            }
+          }
+        },
+        "reservations": {
+          "type": "object",
+          "description": "Resource reservations.",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "description": "Reserved container memory."
+            }
+          }
+        }
+      }
+    },
+    "healthcheck": {
+      "type": "object",
+      "description": "Health check timing settings.",
+      "additionalProperties": false,
+      "required": [
+        "interval",
+        "timeout",
+        "retries",
+        "startPeriod"
+      ],
+      "properties": {
+        "interval": {
+          "type": "string",
+          "description": "Health check interval."
+        },
+        "timeout": {
+          "type": "string",
+          "description": "Health check timeout."
+        },
+        "retries": {
+          "type": "integer",
+          "description": "Health check retries.",
+          "default": 10,
+          "minimum": 1
+        },
+        "startPeriod": {
+          "type": "string",
+          "description": "Startup grace period."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+image:
+  repository: searxng/searxng
+  tag: "2026.7.2-67973783d"
+
+service:
+  bindHost: 127.0.0.1
+  port: 8080
+  restart: unless-stopped
+
+app:
+  baseUrl: http://localhost:8080/
+  workers: 4
+  threads: 4
+
+resources:
+  limits:
+    memory: 1G
+  reservations:
+    memory: 256M
+
+healthcheck:
+  interval: 30s
+  timeout: 10s
+  retries: 10
+  startPeriod: 60s

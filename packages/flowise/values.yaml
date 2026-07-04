@@ -1,0 +1,30 @@
+image:
+  repository: flowiseai/flowise
+  tag: "3.1.3"
+
+service:
+  bindHost: 127.0.0.1
+  port: 3000
+  restart: unless-stopped
+
+auth:
+  username: flowise
+  password: "Violet-River-Flowise-7319!Quartz"
+
+storage:
+  databasePath: /root/.flowise
+  logPath: /root/.flowise/logs
+  secretKeyPath: /root/.flowise
+  blobStoragePath: /root/.flowise/storage
+
+resources:
+  limits:
+    memory: 2G
+  reservations:
+    memory: 512M
+
+healthcheck:
+  interval: 30s
+  timeout: 10s
+  retries: 10
+  startPeriod: 60s

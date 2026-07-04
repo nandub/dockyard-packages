@@ -1,0 +1,41 @@
+services:
+  searxng:
+    image: ${image.repository}:${image.tag}
+    restart: ${service.restart}
+    ports:
+      - "${service.bindHost}:${service.port}:8080"
+    environment:
+      SEARXNG_BASE_URL: ${app.baseUrl}
+      SEARXNG_UWSGI_WORKERS: "${app.workers}"
+      SEARXNG_UWSGI_THREADS: "${app.threads}"
+    volumes:
+      - searxng-config:/etc/searxng
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:8080 || exit 1"]
+      interval: ${healthcheck.interval}
+      timeout: ${healthcheck.timeout}
+      retries: ${healthcheck.retries}
+      start_period: ${healthcheck.startPeriod}
+    deploy:
+      resources:
+        limits:
+          memory: ${resources.limits.memory}
+        reservations:
+          memory: ${resources.reservations.memory}
+    networks:
+      - searxng
+
+volumes:
+  searxng-config:
+
+networks:
+  searxng:
+    driver: bridge

@@ -1,0 +1,10 @@
+apiVersion: dockyard.dev/v1alpha1
+name: flowise
+version: 0.1.0
+description: Visual builder for LLM applications, agents, and RAG workflows with persistent local storage.
+compose:
+  base: compose.yaml
+  overlays: {}
+values:
+  default: values.yaml
+  schema: values.schema.json

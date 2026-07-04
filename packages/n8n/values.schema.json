@@ -1,0 +1,166 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "n8n values",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "image",
+    "service",
+    "app",
+    "resources",
+    "healthcheck"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "description": "Container image settings.",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "description": "n8n image repository."
+        },
+        "tag": {
+          "type": "string",
+          "description": "Pinned n8n image tag."
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "description": "Published service settings.",
+      "additionalProperties": false,
+      "required": [
+        "bindHost",
+        "port",
+        "restart"
+      ],
+      "properties": {
+        "bindHost": {
+          "type": "string",
+          "description": "Host interface to bind n8n to."
+        },
+        "port": {
+          "type": "integer",
+          "description": "Host port for n8n.",
+          "default": 5678,
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "restart": {
+          "type": "string",
+          "description": "Compose restart policy."
+        }
+      }
+    },
+    "app": {
+      "type": "object",
+      "description": "n8n application settings.",
+      "additionalProperties": false,
+      "required": [
+        "timezone",
+        "protocol",
+        "host",
+        "webhookUrl",
+        "encryptionKey"
+      ],
+      "properties": {
+        "timezone": {
+          "type": "string",
+          "description": "Timezone for scheduled workflows."
+        },
+        "protocol": {
+          "type": "string",
+          "description": "External protocol for n8n URLs."
+        },
+        "host": {
+          "type": "string",
+          "description": "External hostname for n8n."
+        },
+        "webhookUrl": {
+          "type": "string",
+          "description": "Webhook base URL."
+        },
+        "encryptionKey": {
+          "type": "string",
+          "description": "n8n credential encryption key. Change before first use.",
+          "x-dockyard-sensitive": true
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "description": "Container resource settings.",
+      "additionalProperties": false,
+      "required": [
+        "limits",
+        "reservations"
+      ],
+      "properties": {
+        "limits": {
+          "type": "object",
+          "description": "Resource limits.",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "description": "Maximum container memory."
+            }
+          }
+        },
+        "reservations": {
+          "type": "object",
+          "description": "Resource reservations.",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "description": "Reserved container memory."
+            }
+          }
+        }
+      }
+    },
+    "healthcheck": {
+      "type": "object",
+      "description": "Health check timing settings.",
+      "additionalProperties": false,
+      "required": [
+        "interval",
+        "timeout",
+        "retries",
+        "startPeriod"
+      ],
+      "properties": {
+        "interval": {
+          "type": "string",
+          "description": "Health check interval."
+        },
+        "timeout": {
+          "type": "string",
+          "description": "Health check timeout."
+        },
+        "retries": {
+          "type": "integer",
+          "description": "Health check retries.",
+          "default": 10,
+          "minimum": 1
+        },
+        "startPeriod": {
+          "type": "string",
+          "description": "Startup grace period."
+        }
+      }
+    }
+  }
+}

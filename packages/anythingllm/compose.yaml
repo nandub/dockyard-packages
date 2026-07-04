@@ -1,0 +1,35 @@
+services:
+  anythingllm:
+    image: ${image.repository}:${image.tag}
+    restart: ${service.restart}
+    ports:
+      - "${service.bindHost}:${service.port}:${app.serverPort}"
+    environment:
+      SERVER_PORT: "${app.serverPort}"
+      STORAGE_DIR: ${app.storageDir}
+      JWT_SECRET: ${security.jwtSecret}
+    volumes:
+      - anythingllm-storage:/app/server/storage
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:${app.serverPort} || exit 1"]
+      interval: ${healthcheck.interval}
+      timeout: ${healthcheck.timeout}
+      retries: ${healthcheck.retries}
+      start_period: ${healthcheck.startPeriod}
+    deploy:
+      resources:
+        limits:
+          memory: ${resources.limits.memory}
+        reservations:
+          memory: ${resources.reservations.memory}
+    networks:
+      - anythingllm
+
+volumes:
+  anythingllm-storage:
+
+networks:
+  anythingllm:
+    driver: bridge

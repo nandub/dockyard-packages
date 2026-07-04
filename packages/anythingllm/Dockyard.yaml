@@ -1,0 +1,10 @@
+apiVersion: dockyard.dev/v1alpha1
+name: anythingllm
+version: 0.1.0
+description: Private RAG and AI agent workspace for documents, local LLMs, and hosted model providers.
+compose:
+  base: compose.yaml
+  overlays: {}
+values:
+  default: values.yaml
+  schema: values.schema.json

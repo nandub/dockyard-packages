@@ -1,0 +1,10 @@
+apiVersion: dockyard.dev/v1alpha1
+name: searxng
+version: 0.1.0
+description: Privacy-preserving metasearch service useful for RAG and web-search workflows.
+compose:
+  base: compose.yaml
+  overlays: {}
+values:
+  default: values.yaml
+  schema: values.schema.json

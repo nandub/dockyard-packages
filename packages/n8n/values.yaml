@@ -1,0 +1,27 @@
+image:
+  repository: n8nio/n8n
+  tag: "2.29.5"
+
+service:
+  bindHost: 127.0.0.1
+  port: 5678
+  restart: unless-stopped
+
+app:
+  timezone: America/Chicago
+  protocol: http
+  host: localhost
+  webhookUrl: http://localhost:5678/
+  encryptionKey: "Violet-River-n8n-4729!Quartz"
+
+resources:
+  limits:
+    memory: 2G
+  reservations:
+    memory: 512M
+
+healthcheck:
+  interval: 30s
+  timeout: 10s
+  retries: 10
+  startPeriod: 60s

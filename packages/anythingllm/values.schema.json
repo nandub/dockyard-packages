@@ -1,0 +1,169 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "anythingllm values",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "image",
+    "service",
+    "app",
+    "security",
+    "resources",
+    "healthcheck"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "description": "Container image settings.",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "description": "AnythingLLM image repository."
+        },
+        "tag": {
+          "type": "string",
+          "description": "Pinned AnythingLLM image tag."
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "description": "Published service settings.",
+      "additionalProperties": false,
+      "required": [
+        "bindHost",
+        "port",
+        "restart"
+      ],
+      "properties": {
+        "bindHost": {
+          "type": "string",
+          "description": "Host interface to bind AnythingLLM to."
+        },
+        "port": {
+          "type": "integer",
+          "description": "Host port for AnythingLLM.",
+          "default": 3001,
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "restart": {
+          "type": "string",
+          "description": "Compose restart policy."
+        }
+      }
+    },
+    "app": {
+      "type": "object",
+      "description": "AnythingLLM application settings.",
+      "additionalProperties": false,
+      "required": [
+        "serverPort",
+        "storageDir"
+      ],
+      "properties": {
+        "serverPort": {
+          "type": "integer",
+          "description": "Container HTTP port.",
+          "default": 3001,
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "storageDir": {
+          "type": "string",
+          "description": "Storage path inside the container."
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "description": "Security-sensitive application settings.",
+      "additionalProperties": false,
+      "required": [
+        "jwtSecret"
+      ],
+      "properties": {
+        "jwtSecret": {
+          "type": "string",
+          "description": "JWT secret for AnythingLLM. Change for shared environments.",
+          "x-dockyard-sensitive": true
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "description": "Container resource settings.",
+      "additionalProperties": false,
+      "required": [
+        "limits",
+        "reservations"
+      ],
+      "properties": {
+        "limits": {
+          "type": "object",
+          "description": "Resource limits.",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "description": "Maximum container memory."
+            }
+          }
+        },
+        "reservations": {
+          "type": "object",
+          "description": "Resource reservations.",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "description": "Reserved container memory."
+            }
+          }
+        }
+      }
+    },
+    "healthcheck": {
+      "type": "object",
+      "description": "Health check timing settings.",
+      "additionalProperties": false,
+      "required": [
+        "interval",
+        "timeout",
+        "retries",
+        "startPeriod"
+      ],
+      "properties": {
+        "interval": {
+          "type": "string",
+          "description": "Health check interval."
+        },
+        "timeout": {
+          "type": "string",
+          "description": "Health check timeout."
+        },
+        "retries": {
+          "type": "integer",
+          "description": "Health check retries.",
+          "default": 20,
+          "minimum": 1
+        },
+        "startPeriod": {
+          "type": "string",
+          "description": "Startup grace period."
+        }
+      }
+    }
+  }
+}

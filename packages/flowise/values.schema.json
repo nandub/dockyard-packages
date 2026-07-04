@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "flowise values",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "image",
+    "service",
+    "auth",
+    "storage",
+    "resources",
+    "healthcheck"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "description": "Container image settings.",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "description": "Flowise image repository."
+        },
+        "tag": {
+          "type": "string",
+          "description": "Pinned Flowise image tag."
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "description": "Published service settings.",
+      "additionalProperties": false,
+      "required": [
+        "bindHost",
+        "port",
+        "restart"
+      ],
+      "properties": {
+        "bindHost": {
+          "type": "string",
+          "description": "Host interface to bind the Flowise web port to."
+        },
+        "port": {
+          "type": "integer",
+          "description": "Host port for Flowise.",
+          "default": 3000,
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "restart": {
+          "type": "string",
+          "description": "Compose restart policy."
+        }
+      }
+    },
+    "auth": {
+      "type": "object",
+      "description": "Basic authentication settings.",
+      "additionalProperties": false,
+      "required": [
+        "username",
+        "password"
+      ],
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Flowise UI username."
+        },
+        "password": {
+          "type": "string",
+          "description": "Flowise UI password. Change for shared environments.",
+          "x-dockyard-sensitive": true
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "description": "Flowise persistent path settings.",
+      "additionalProperties": false,
+      "required": [
+        "databasePath",
+        "logPath",
+        "secretKeyPath",
+        "blobStoragePath"
+      ],
+      "properties": {
+        "databasePath": {
+          "type": "string",
+          "description": "Flowise database path inside the container."
+        },
+        "logPath": {
+          "type": "string",
+          "description": "Flowise log path inside the container."
+        },
+        "secretKeyPath": {
+          "type": "string",
+          "description": "Path where Flowise stores secret key material.",
+          "x-dockyard-sensitive": true
+        },
+        "blobStoragePath": {
+          "type": "string",
+          "description": "Path where Flowise stores file/blob data."
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "description": "Container resource settings.",
+      "additionalProperties": false,
+      "required": [
+        "limits",
+        "reservations"
+      ],
+      "properties": {
+        "limits": {
+          "type": "object",
+          "description": "Resource limits.",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "description": "Maximum container memory."
+            }
+          }
+        },
+        "reservations": {
+          "type": "object",
+          "description": "Resource reservations.",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "description": "Reserved container memory."
+            }
+          }
+        }
+      }
+    },
+    "healthcheck": {
+      "type": "object",
+      "description": "Health check timing settings.",
+      "additionalProperties": false,
+      "required": [
+        "interval",
+        "timeout",
+        "retries",
+        "startPeriod"
+      ],
+      "properties": {
+        "interval": {
+          "type": "string",
+          "description": "Health check interval."
+        },
+        "timeout": {
+          "type": "string",
+          "description": "Health check timeout."
+        },
+        "retries": {
+          "type": "integer",
+          "description": "Health check retries.",
+          "default": 10,
+          "minimum": 1
+        },
+        "startPeriod": {
+          "type": "string",
+          "description": "Startup grace period."
+        }
+      }
+    }
+  }
+}

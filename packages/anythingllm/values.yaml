@@ -1,0 +1,27 @@
+image:
+  repository: mintplexlabs/anythingllm
+  tag: "1.15.0"
+
+service:
+  bindHost: 127.0.0.1
+  port: 3001
+  restart: unless-stopped
+
+app:
+  serverPort: 3001
+  storageDir: /app/server/storage
+
+security:
+  jwtSecret: "Violet-River-AnythingLLM-9187!Quartz"
+
+resources:
+  limits:
+    memory: 3G
+  reservations:
+    memory: 1G
+
+healthcheck:
+  interval: 30s
+  timeout: 10s
+  retries: 20
+  startPeriod: 120s

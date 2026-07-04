@@ -1,0 +1,27 @@
+  anythingllm:
+    latest: 0.1.0
+    description: Self-hosted AI workspace for document chat and retrieval-augmented generation.
+    source: oci://ghcr.io/nandub/dockyard-packages/anythingllm
+    versions:
+      - 0.1.0
+
+  flowise:
+    latest: 0.1.0
+    description: Visual LLM workflow builder for chatbots, agents, and RAG pipelines.
+    source: oci://ghcr.io/nandub/dockyard-packages/flowise
+    versions:
+      - 0.1.0
+
+  n8n:
+    latest: 0.1.0
+    description: Workflow automation platform with AI integrations and persistent local state.
+    source: oci://ghcr.io/nandub/dockyard-packages/n8n
+    versions:
+      - 0.1.0
+
+  searxng:
+    latest: 0.1.0
+    description: Privacy-respecting metasearch engine for web search and RAG support.
+    source: oci://ghcr.io/nandub/dockyard-packages/searxng
+    versions:
+      - 0.1.0

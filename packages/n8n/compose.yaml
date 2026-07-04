@@ -1,0 +1,40 @@
+services:
+  n8n:
+    image: ${image.repository}:${image.tag}
+    restart: ${service.restart}
+    ports:
+      - "${service.bindHost}:${service.port}:5678"
+    environment:
+      TZ: ${app.timezone}
+      GENERIC_TIMEZONE: ${app.timezone}
+      N8N_PROTOCOL: ${app.protocol}
+      N8N_HOST: ${app.host}
+      WEBHOOK_URL: ${app.webhookUrl}
+      N8N_ENCRYPTION_KEY: ${app.encryptionKey}
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_PERSONALIZATION_ENABLED: "false"
+    volumes:
+      - n8n-data:/home/node/.n8n
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:5678/healthz || wget -q --spider http://127.0.0.1:5678 || exit 1"]
+      interval: ${healthcheck.interval}
+      timeout: ${healthcheck.timeout}
+      retries: ${healthcheck.retries}
+      start_period: ${healthcheck.startPeriod}
+    deploy:
+      resources:
+        limits:
+          memory: ${resources.limits.memory}
+        reservations:
+          memory: ${resources.reservations.memory}
+    networks:
+      - n8n
+
+volumes:
+  n8n-data:
+
+networks:
+  n8n:
+    driver: bridge
