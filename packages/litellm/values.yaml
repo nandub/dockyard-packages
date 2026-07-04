@@ -1,0 +1,28 @@
+image:
+  repository: docker.litellm.ai/berriai/litellm
+  tag: main-latest
+
+service:
+  bindHost: 127.0.0.1
+  port: 4000
+  restart: unless-stopped
+
+security:
+  masterKey: Change-LiteLLM-Master-6249!Gateway
+  saltKey: Change-LiteLLM-Salt-2184!Gateway
+
+ollama:
+  apiBase: http://host.docker.internal:11434
+  model: llama3.2
+
+resources:
+  limits:
+    memory: 1G
+  reservations:
+    memory: 256M
+
+healthcheck:
+  interval: 30s
+  timeout: 10s
+  retries: 10
+  startPeriod: 30s

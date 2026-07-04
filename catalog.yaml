@@ -26,6 +26,11 @@ packages:
     description: Identity and access management service.
     source: oci://ghcr.io/nandub/dockyard-packages/keycloak
     versions: [0.1.0]
+  - name: litellm
+    latest: 0.1.0
+    description: OpenAI-compatible LLM gateway and proxy for local and hosted model providers.
+    source: oci://ghcr.io/nandub/dockyard-packages/litellm
+    versions: [0.1.0]
   - name: loki
     latest: 0.1.0
     description: Grafana Loki log aggregation.
@@ -61,13 +66,21 @@ packages:
     description: Nginx web server.
     source: oci://ghcr.io/nandub/dockyard-packages/nginx
     versions: [0.1.0]
+  - name: ollama
+    latest: 0.1.0
+    description: Local LLM runtime with persistent model storage and conservative network defaults.
+    source: oci://ghcr.io/nandub/dockyard-packages/ollama
+    versions: [0.1.0]
+  - name: open-webui
+    latest: 0.1.0
+    description: Self-hosted AI chat interface for Ollama and OpenAI-compatible APIs.
+    source: oci://ghcr.io/nandub/dockyard-packages/open-webui
+    versions: [0.1.0]
   - name: opensearch
     latest: 0.1.1
     description: OpenSearch search and analytics engine with Dashboards, persistence, security bootstrap, and resource controls.
     source: oci://ghcr.io/nandub/dockyard-packages/opensearch
-    versions:
-      - 0.1.0
-      - 0.1.1
+    versions: [0.1.0, 0.1.1]
   - name: pgadmin
     latest: 0.1.0
     description: pgAdmin PostgreSQL administration UI.
@@ -83,6 +96,11 @@ packages:
     description: Prometheus metrics server.
     source: oci://ghcr.io/nandub/dockyard-packages/prometheus
     versions: [0.1.0]
+  - name: qdrant
+    latest: 0.1.0
+    description: Vector database for embeddings and retrieval-augmented generation workloads.
+    source: oci://ghcr.io/nandub/dockyard-packages/qdrant
+    versions: [0.1.0]
   - name: rabbitmq
     latest: 0.1.0
     description: RabbitMQ message broker.
@@ -92,9 +110,7 @@ packages:
     latest: 0.2.0
     description: Redis-compatible in-memory data store with authentication, persistence, health checks, and resource controls.
     source: oci://ghcr.io/nandub/dockyard-packages/redis
-    versions:
-      - 0.1.0
-      - 0.2.0
+    versions: [0.1.0, 0.2.0]
   - name: traefik
     latest: 0.1.0
     description: Traefik reverse proxy.

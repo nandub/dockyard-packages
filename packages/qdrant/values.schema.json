@@ -1,0 +1,174 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "Qdrant package values",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "image",
+    "service",
+    "security",
+    "storage",
+    "resources",
+    "healthcheck"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Qdrant container image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Qdrant image tag. Uses the unprivileged image by default."
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bindHost",
+        "httpPort",
+        "grpcPort",
+        "restart"
+      ],
+      "properties": {
+        "bindHost": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Host interface for Qdrant ports. Use 127.0.0.1 unless intentionally exposing Qdrant."
+        },
+        "httpPort": {
+          "type": "integer",
+          "description": "Host port for the Qdrant HTTP API.",
+          "minimum": 1
+        },
+        "grpcPort": {
+          "type": "integer",
+          "description": "Host port for the Qdrant gRPC API.",
+          "minimum": 1
+        },
+        "restart": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Docker Compose restart policy for Qdrant."
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "apiKey",
+        "readOnlyApiKey"
+      ],
+      "properties": {
+        "apiKey": {
+          "type": "string",
+          "minLength": 12,
+          "description": "Qdrant API key for read/write access. Change before production use.",
+          "x-dockyard-sensitive": true
+        },
+        "readOnlyApiKey": {
+          "type": "string",
+          "minLength": 12,
+          "description": "Qdrant read-only API key. Change before production use.",
+          "x-dockyard-sensitive": true
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "snapshotPath"
+      ],
+      "properties": {
+        "snapshotPath": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Snapshot path inside the Qdrant container."
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "limits",
+        "reservations"
+      ],
+      "properties": {
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Container memory limit for Qdrant."
+            }
+          }
+        },
+        "reservations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Container memory reservation for Qdrant."
+            }
+          }
+        }
+      }
+    },
+    "healthcheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interval",
+        "timeout",
+        "retries",
+        "startPeriod"
+      ],
+      "properties": {
+        "interval": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check interval."
+        },
+        "timeout": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check timeout."
+        },
+        "retries": {
+          "type": "integer",
+          "description": "Health check retry count.",
+          "minimum": 1
+        },
+        "startPeriod": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check startup grace period."
+        }
+      }
+    }
+  }
+}

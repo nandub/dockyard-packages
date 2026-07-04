@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "Open WebUI package values",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "image",
+    "service",
+    "ollama",
+    "security",
+    "resources",
+    "healthcheck"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Open WebUI container image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Open WebUI image tag. The upstream project commonly publishes the main image tag."
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bindHost",
+        "port",
+        "restart"
+      ],
+      "properties": {
+        "bindHost": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Host interface for Open WebUI. Use 127.0.0.1 unless placing it behind a trusted reverse proxy."
+        },
+        "port": {
+          "type": "integer",
+          "description": "Host port for Open WebUI.",
+          "minimum": 1
+        },
+        "restart": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Docker Compose restart policy for Open WebUI."
+        }
+      }
+    },
+    "ollama": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "baseUrl"
+      ],
+      "properties": {
+        "baseUrl": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Ollama base URL from inside the Open WebUI container."
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "webuiSecretKey"
+      ],
+      "properties": {
+        "webuiSecretKey": {
+          "type": "string",
+          "minLength": 12,
+          "description": "Secret key used by Open WebUI for application signing/session security. Change for production.",
+          "x-dockyard-sensitive": true
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "limits",
+        "reservations"
+      ],
+      "properties": {
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Container memory limit for Open WebUI."
+            }
+          }
+        },
+        "reservations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Container memory reservation for Open WebUI."
+            }
+          }
+        }
+      }
+    },
+    "healthcheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interval",
+        "timeout",
+        "retries",
+        "startPeriod"
+      ],
+      "properties": {
+        "interval": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check interval."
+        },
+        "timeout": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check timeout."
+        },
+        "retries": {
+          "type": "integer",
+          "description": "Health check retry count.",
+          "minimum": 1
+        },
+        "startPeriod": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check startup grace period."
+        }
+      }
+    }
+  }
+}

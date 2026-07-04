@@ -1,0 +1,174 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "LiteLLM package values",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "image",
+    "service",
+    "security",
+    "ollama",
+    "resources",
+    "healthcheck"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "LiteLLM proxy container image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "LiteLLM image tag."
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bindHost",
+        "port",
+        "restart"
+      ],
+      "properties": {
+        "bindHost": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Host interface for the LiteLLM proxy. Use 127.0.0.1 unless placing behind a trusted reverse proxy."
+        },
+        "port": {
+          "type": "integer",
+          "description": "Host port for the LiteLLM proxy.",
+          "minimum": 1
+        },
+        "restart": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Docker Compose restart policy for LiteLLM."
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "masterKey",
+        "saltKey"
+      ],
+      "properties": {
+        "masterKey": {
+          "type": "string",
+          "minLength": 12,
+          "description": "LiteLLM master key required for proxy access. Change before production use.",
+          "x-dockyard-sensitive": true
+        },
+        "saltKey": {
+          "type": "string",
+          "minLength": 12,
+          "description": "LiteLLM salt key used for encryption/signing. Change before production use.",
+          "x-dockyard-sensitive": true
+        }
+      }
+    },
+    "ollama": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "apiBase",
+        "model"
+      ],
+      "properties": {
+        "apiBase": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Ollama API base URL from inside the LiteLLM container."
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Default Ollama model name referenced by documentation. Pull the model in Ollama before use."
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "limits",
+        "reservations"
+      ],
+      "properties": {
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Container memory limit for LiteLLM."
+            }
+          }
+        },
+        "reservations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Container memory reservation for LiteLLM."
+            }
+          }
+        }
+      }
+    },
+    "healthcheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interval",
+        "timeout",
+        "retries",
+        "startPeriod"
+      ],
+      "properties": {
+        "interval": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check interval."
+        },
+        "timeout": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check timeout."
+        },
+        "retries": {
+          "type": "integer",
+          "description": "Health check retry count.",
+          "minimum": 1
+        },
+        "startPeriod": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check startup grace period."
+        }
+      }
+    }
+  }
+}

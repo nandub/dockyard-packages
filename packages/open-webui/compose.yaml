@@ -1,0 +1,38 @@
+services:
+  open-webui:
+    image: ${image.repository}:${image.tag}
+    restart: ${service.restart}
+    ports:
+      - "${service.bindHost}:${service.port}:8080"
+    volumes:
+      - open-webui-data:/app/backend/data
+    environment:
+      OLLAMA_BASE_URL: ${ollama.baseUrl}
+      WEBUI_SECRET_KEY: ${security.webuiSecretKey}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/').read()\" >/dev/null 2>&1 || exit 1"
+      interval: ${healthcheck.interval}
+      timeout: ${healthcheck.timeout}
+      retries: ${healthcheck.retries}
+      start_period: ${healthcheck.startPeriod}
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: ${resources.limits.memory}
+        reservations:
+          memory: ${resources.reservations.memory}
+    networks:
+      - open-webui
+
+volumes:
+  open-webui-data:
+
+networks:
+  open-webui:
+    driver: bridge

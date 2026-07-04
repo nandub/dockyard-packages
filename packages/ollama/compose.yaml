@@ -1,0 +1,35 @@
+services:
+  ollama:
+    image: ${image.repository}:${image.tag}
+    restart: ${service.restart}
+    volumes:
+      - ollama-models:/root/.ollama
+    ports:
+      - "${service.bindHost}:${service.port}:11434"
+    environment:
+      OLLAMA_HOST: 0.0.0.0:11434
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - "ollama list >/dev/null 2>&1 || exit 1"
+      interval: ${healthcheck.interval}
+      timeout: ${healthcheck.timeout}
+      retries: ${healthcheck.retries}
+      start_period: ${healthcheck.startPeriod}
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: ${resources.limits.memory}
+        reservations:
+          memory: ${resources.reservations.memory}
+    networks:
+      - ollama
+
+volumes:
+  ollama-models:
+
+networks:
+  ollama:
+    driver: bridge

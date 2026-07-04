@@ -1,0 +1,28 @@
+image:
+  repository: qdrant/qdrant
+  tag: v1.18.2-unprivileged
+
+service:
+  bindHost: 127.0.0.1
+  httpPort: 6333
+  grpcPort: 6334
+  restart: unless-stopped
+
+security:
+  apiKey: Change-Qdrant-Key-4826!Vector
+  readOnlyApiKey: Change-Qdrant-ReadOnly-9182!Vector
+
+storage:
+  snapshotPath: /qdrant/snapshots
+
+resources:
+  limits:
+    memory: 2G
+  reservations:
+    memory: 512M
+
+healthcheck:
+  interval: 30s
+  timeout: 10s
+  retries: 10
+  startPeriod: 30s

@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "Ollama package values",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "image",
+    "service",
+    "models",
+    "resources",
+    "healthcheck"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "tag"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Ollama container image repository."
+        },
+        "tag": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Ollama image tag. Pin this for repeatable deployments."
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bindHost",
+        "port",
+        "restart"
+      ],
+      "properties": {
+        "bindHost": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Host interface for the Ollama API port. Use 127.0.0.1 unless intentionally exposing Ollama."
+        },
+        "port": {
+          "type": "integer",
+          "description": "Host port for Ollama's HTTP API.",
+          "minimum": 1
+        },
+        "restart": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Docker Compose restart policy for Ollama."
+        }
+      }
+    },
+    "models": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "autoPull",
+        "defaultModel"
+      ],
+      "properties": {
+        "autoPull": {
+          "type": "boolean",
+          "description": "Reserved for future model bootstrap workflows. Defaults to false so installs do not download large models automatically."
+        },
+        "defaultModel": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Suggested default model name for documentation and downstream apps. It is not pulled automatically."
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "limits",
+        "reservations"
+      ],
+      "properties": {
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Container memory limit for Ollama."
+            }
+          }
+        },
+        "reservations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "memory"
+          ],
+          "properties": {
+            "memory": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Container memory reservation for Ollama."
+            }
+          }
+        }
+      }
+    },
+    "healthcheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interval",
+        "timeout",
+        "retries",
+        "startPeriod"
+      ],
+      "properties": {
+        "interval": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check interval."
+        },
+        "timeout": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check timeout."
+        },
+        "retries": {
+          "type": "integer",
+          "description": "Health check retry count.",
+          "minimum": 1
+        },
+        "startPeriod": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Health check startup grace period."
+        }
+      }
+    }
+  }
+}

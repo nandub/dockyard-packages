@@ -1,0 +1,11 @@
+﻿apiVersion: dockyard.dev/v1alpha1
+name: ollama
+version: 0.1.0
+description: Local LLM runtime with persistent model storage and conservative network defaults.
+compose:
+  base: compose.yaml
+  overlays: {}
+values:
+  default: values.yaml
+schema: values.schema.json
+
