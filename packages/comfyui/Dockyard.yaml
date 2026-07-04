@@ -1,0 +1,6 @@
+apiVersion: dockyard.dev/v1alpha1
+name: comfyui
+version: 0.1.0
+description: Node-based visual AI workflow UI with persistent model and output volumes.
+compose:
+  base: compose.yaml

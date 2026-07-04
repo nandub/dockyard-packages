@@ -1,0 +1,14 @@
+image:
+  repository: vllm/vllm-openai
+  tag: latest
+network:
+  host: 127.0.0.1
+service:
+  port: 8000
+model:
+  name: Qwen/Qwen3-0.6B
+huggingface:
+  token: ""
+  cacheDir: /root/.cache/huggingface
+runtime:
+  ipcMode: host

@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "image": {
+      "type": "object",
+      "description": "vLLM OpenAI-compatible server image settings.",
+      "additionalProperties": false,
+      "properties": {
+        "repository": {
+          "type": "string",
+          "description": "Container image repository for vLLM."
+        },
+        "tag": {
+          "type": "string",
+          "description": "Container image tag for vLLM."
+        }
+      },
+      "required": [
+        "repository",
+        "tag"
+      ]
+    },
+    "network": {
+      "type": "object",
+      "description": "Host network binding settings.",
+      "additionalProperties": false,
+      "properties": {
+        "host": {
+          "type": "string",
+          "description": "Host interface for the published API port."
+        }
+      },
+      "required": [
+        "host"
+      ]
+    },
+    "service": {
+      "type": "object",
+      "description": "vLLM service settings.",
+      "additionalProperties": false,
+      "properties": {
+        "port": {
+          "type": "integer",
+          "description": "Host port for the OpenAI-compatible HTTP API.",
+          "minimum": 1,
+          "maximum": 65535
+        }
+      },
+      "required": [
+        "port"
+      ]
+    },
+    "model": {
+      "type": "object",
+      "description": "Model loading settings.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Model identifier passed to vLLM."
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "huggingface": {
+      "type": "object",
+      "description": "Hugging Face access and cache settings.",
+      "additionalProperties": false,
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "Optional Hugging Face token for gated models.",
+          "x-dockyard-sensitive": true
+        },
+        "cacheDir": {
+          "type": "string",
+          "description": "Container path for Hugging Face cache."
+        }
+      },
+      "required": [
+        "token",
+        "cacheDir"
+      ]
+    },
+    "runtime": {
+      "type": "object",
+      "description": "Container runtime settings for vLLM.",
+      "additionalProperties": false,
+      "properties": {
+        "ipcMode": {
+          "type": "string",
+          "description": "IPC mode used by the vLLM container."
+        }
+      },
+      "required": [
+        "ipcMode"
+      ]
+    }
+  },
+  "required": [
+    "image",
+    "network",
+    "service",
+    "model",
+    "huggingface",
+    "runtime"
+  ]
+}

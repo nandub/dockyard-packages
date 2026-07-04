@@ -1,0 +1,14 @@
+image:
+  repository: arizephoenix/phoenix
+  tag: latest
+network:
+  host: 127.0.0.1
+service:
+  ports:
+    ui: 6006
+    otlpGrpc: 4317
+storage:
+  workingDir: /mnt/data
+auth:
+  enabled: false
+  secret: change-phoenix-secret-before-enabling-auth

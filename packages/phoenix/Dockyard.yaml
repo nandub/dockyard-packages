@@ -1,0 +1,6 @@
+apiVersion: dockyard.dev/v1alpha1
+name: phoenix
+version: 0.1.0
+description: LLM observability, tracing, and evaluation server with local persistence.
+compose:
+  base: compose.yaml

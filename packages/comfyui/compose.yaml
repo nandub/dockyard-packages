@@ -1,0 +1,12 @@
+services:
+  comfyui:
+    image: "${image.repository}:${image.tag}"
+    restart: unless-stopped
+    ports:
+      - "${network.host}:${service.port}:8188"
+    volumes:
+      - comfyui-workspace:${storage.basePath}
+    security_opt:
+      - no-new-privileges:true
+volumes:
+  comfyui-workspace:

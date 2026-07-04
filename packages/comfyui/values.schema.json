@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "image": {
+      "type": "object",
+      "description": "ComfyUI container image settings. This uses a community image because upstream ComfyUI does not publish a single canonical Docker image.",
+      "additionalProperties": false,
+      "properties": {
+        "repository": {
+          "type": "string",
+          "description": "Container image repository for ComfyUI."
+        },
+        "tag": {
+          "type": "string",
+          "description": "Container image tag for ComfyUI."
+        }
+      },
+      "required": [
+        "repository",
+        "tag"
+      ]
+    },
+    "network": {
+      "type": "object",
+      "description": "Host network binding settings.",
+      "additionalProperties": false,
+      "properties": {
+        "host": {
+          "type": "string",
+          "description": "Host interface for the published ComfyUI port."
+        }
+      },
+      "required": [
+        "host"
+      ]
+    },
+    "service": {
+      "type": "object",
+      "description": "ComfyUI service settings.",
+      "additionalProperties": false,
+      "properties": {
+        "port": {
+          "type": "integer",
+          "description": "Host port for the ComfyUI web UI.",
+          "minimum": 1,
+          "maximum": 65535
+        }
+      },
+      "required": [
+        "port"
+      ]
+    },
+    "storage": {
+      "type": "object",
+      "description": "ComfyUI persistent storage settings.",
+      "additionalProperties": false,
+      "properties": {
+        "basePath": {
+          "type": "string",
+          "description": "Container workspace path used by the selected image."
+        }
+      },
+      "required": [
+        "basePath"
+      ]
+    }
+  },
+  "required": [
+    "image",
+    "network",
+    "service",
+    "storage"
+  ]
+}

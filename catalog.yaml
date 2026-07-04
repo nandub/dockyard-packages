@@ -7,11 +7,13 @@ packages:
     source: oci://ghcr.io/nandub/dockyard-packages/adminer
     versions: [0.1.0]
 
+
   - name: alloy
     latest: 0.1.0
     description: Grafana Alloy telemetry collector.
     source: oci://ghcr.io/nandub/dockyard-packages/alloy
     versions: [0.1.0]
+
 
   - name: anythingllm
     latest: 0.1.0
@@ -19,11 +21,20 @@ packages:
     description: Self-hosted AI workspace for document chat and retrieval-augmented generation.
     versions:
       - 0.1.0
+
   - name: caddy
     latest: 0.1.0
     description: Caddy web server and reverse proxy.
     source: oci://ghcr.io/nandub/dockyard-packages/caddy
     versions: [0.1.0]
+
+
+  - name: comfyui
+    latest: 0.1.0
+    source: oci://ghcr.io/nandub/dockyard-packages/comfyui
+    description: Node-based visual AI workflow UI with persistent model and output volumes.
+    versions:
+      - 0.1.0
 
   - name: flowise
     latest: 0.1.0
@@ -31,11 +42,13 @@ packages:
     description: Visual LLM workflow builder for chatbots, agents, and RAG pipelines.
     versions:
       - 0.1.0
+
   - name: grafana
     latest: 0.1.0
     description: Grafana dashboards and visualization.
     source: oci://ghcr.io/nandub/dockyard-packages/grafana
     versions: [0.1.0]
+
 
   - name: keycloak
     latest: 0.1.0
@@ -43,11 +56,20 @@ packages:
     source: oci://ghcr.io/nandub/dockyard-packages/keycloak
     versions: [0.1.0]
 
+
+  - name: langfuse
+    latest: 0.1.0
+    source: oci://ghcr.io/nandub/dockyard-packages/langfuse
+    description: Self-hosted LLM observability platform with web, worker, PostgreSQL, Redis, ClickHouse, and MinIO.
+    versions:
+      - 0.1.0
+
   - name: litellm
     latest: 0.1.0
     description: OpenAI-compatible LLM gateway and proxy for local and hosted model providers.
     source: oci://ghcr.io/nandub/dockyard-packages/litellm
     versions: [0.1.0]
+
 
   - name: loki
     latest: 0.1.0
@@ -55,11 +77,13 @@ packages:
     source: oci://ghcr.io/nandub/dockyard-packages/loki
     versions: [0.1.0]
 
+
   - name: mariadb
     latest: 0.1.0
     description: MariaDB relational database.
     source: oci://ghcr.io/nandub/dockyard-packages/mariadb
     versions: [0.1.0]
+
 
   - name: meilisearch
     latest: 0.1.0
@@ -67,11 +91,13 @@ packages:
     source: oci://ghcr.io/nandub/dockyard-packages/meilisearch
     versions: [0.1.0]
 
+
   - name: minio
     latest: 0.1.0
     description: S3-compatible object storage.
     source: oci://ghcr.io/nandub/dockyard-packages/minio
     versions: [0.1.0]
+
 
   - name: mongodb
     latest: 0.1.0
@@ -79,17 +105,20 @@ packages:
     source: oci://ghcr.io/nandub/dockyard-packages/mongodb
     versions: [0.1.0]
 
+
   - name: n8n
     latest: 0.1.0
     source: oci://ghcr.io/nandub/dockyard-packages/n8n
     description: Workflow automation platform with AI integrations and persistent local state.
     versions:
       - 0.1.0
+
   - name: nats
     latest: 0.1.0
     description: NATS messaging server.
     source: oci://ghcr.io/nandub/dockyard-packages/nats
     versions: [0.1.0]
+
 
   - name: nginx
     latest: 0.1.0
@@ -97,11 +126,13 @@ packages:
     source: oci://ghcr.io/nandub/dockyard-packages/nginx
     versions: [0.1.0]
 
+
   - name: ollama
     latest: 0.1.0
     description: Local LLM runtime with persistent model storage and conservative network defaults.
     source: oci://ghcr.io/nandub/dockyard-packages/ollama
     versions: [0.1.0]
+
 
   - name: opensearch
     latest: 0.1.1
@@ -109,11 +140,13 @@ packages:
     source: oci://ghcr.io/nandub/dockyard-packages/opensearch
     versions: [0.1.0, 0.1.1]
 
+
   - name: open-webui
     latest: 0.1.0
     description: Self-hosted AI chat interface for Ollama and OpenAI-compatible APIs.
     source: oci://ghcr.io/nandub/dockyard-packages/open-webui
     versions: [0.1.0]
+
 
   - name: pgadmin
     latest: 0.1.0
@@ -121,11 +154,20 @@ packages:
     source: oci://ghcr.io/nandub/dockyard-packages/pgadmin
     versions: [0.1.0]
 
+
+  - name: phoenix
+    latest: 0.1.0
+    source: oci://ghcr.io/nandub/dockyard-packages/phoenix
+    description: LLM observability, tracing, and evaluation server with local persistence.
+    versions:
+      - 0.1.0
+
   - name: postgres
     latest: 0.1.0
     description: PostgreSQL relational database.
     source: oci://ghcr.io/nandub/dockyard-packages/postgres
     versions: [0.1.0]
+
 
   - name: prometheus
     latest: 0.1.0
@@ -133,11 +175,13 @@ packages:
     source: oci://ghcr.io/nandub/dockyard-packages/prometheus
     versions: [0.1.0]
 
+
   - name: qdrant
     latest: 0.1.0
     description: Vector database for embeddings and retrieval-augmented generation workloads.
     source: oci://ghcr.io/nandub/dockyard-packages/qdrant
     versions: [0.1.0]
+
 
   - name: rabbitmq
     latest: 0.1.0
@@ -145,11 +189,13 @@ packages:
     source: oci://ghcr.io/nandub/dockyard-packages/rabbitmq
     versions: [0.1.0]
 
+
   - name: redis
     latest: 0.2.0
     description: Redis-compatible in-memory data store with authentication, persistence, health checks, and resource controls.
     source: oci://ghcr.io/nandub/dockyard-packages/redis
     versions: [0.1.0, 0.2.0]
+
 
   - name: searxng
     latest: 0.1.0
@@ -157,11 +203,13 @@ packages:
     description: Privacy-respecting metasearch engine for web search and RAG support.
     versions:
       - 0.1.0
+
   - name: traefik
     latest: 0.1.0
     description: Traefik reverse proxy.
     source: oci://ghcr.io/nandub/dockyard-packages/traefik
     versions: [0.1.0]
+
 
   - name: typesense
     latest: 0.1.0
@@ -169,8 +217,16 @@ packages:
     source: oci://ghcr.io/nandub/dockyard-packages/typesense
     versions: [0.1.0]
 
+
   - name: uptime-kuma
     latest: 0.1.0
     description: Uptime Kuma monitoring dashboard.
     source: oci://ghcr.io/nandub/dockyard-packages/uptime-kuma
     versions: [0.1.0]
+
+  - name: vllm
+    latest: 0.1.0
+    source: oci://ghcr.io/nandub/dockyard-packages/vllm
+    description: OpenAI-compatible high-throughput LLM inference server.
+    versions:
+      - 0.1.0

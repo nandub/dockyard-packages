@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "image": {
+      "type": "object",
+      "description": "Phoenix container image settings.",
+      "additionalProperties": false,
+      "properties": {
+        "repository": {
+          "type": "string",
+          "description": "Container image repository for Phoenix."
+        },
+        "tag": {
+          "type": "string",
+          "description": "Container image tag for Phoenix."
+        }
+      },
+      "required": [
+        "repository",
+        "tag"
+      ]
+    },
+    "network": {
+      "type": "object",
+      "description": "Host network binding settings.",
+      "additionalProperties": false,
+      "properties": {
+        "host": {
+          "type": "string",
+          "description": "Host interface for published ports; defaults to loopback."
+        }
+      },
+      "required": [
+        "host"
+      ]
+    },
+    "service": {
+      "type": "object",
+      "description": "Phoenix service port settings.",
+      "additionalProperties": false,
+      "properties": {
+        "ports": {
+          "type": "object",
+          "description": "Published host ports for Phoenix.",
+          "additionalProperties": false,
+          "properties": {
+            "ui": {
+              "type": "integer",
+              "description": "Host port for the Phoenix UI and HTTP API.",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "otlpGrpc": {
+              "type": "integer",
+              "description": "Host port for the OpenTelemetry gRPC collector.",
+              "minimum": 1,
+              "maximum": 65535
+            }
+          },
+          "required": [
+            "ui",
+            "otlpGrpc"
+          ]
+        }
+      },
+      "required": [
+        "ports"
+      ]
+    },
+    "storage": {
+      "type": "object",
+      "description": "Phoenix persistence settings.",
+      "additionalProperties": false,
+      "properties": {
+        "workingDir": {
+          "type": "string",
+          "description": "Container path used by Phoenix for persistent working data."
+        }
+      },
+      "required": [
+        "workingDir"
+      ]
+    },
+    "auth": {
+      "type": "object",
+      "description": "Optional Phoenix authentication settings.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable Phoenix authentication when supported by the selected version."
+        },
+        "secret": {
+          "type": "string",
+          "description": "Phoenix authentication secret; replace before enabling authentication.",
+          "x-dockyard-sensitive": true
+        }
+      },
+      "required": [
+        "enabled",
+        "secret"
+      ]
+    }
+  },
+  "required": [
+    "image",
+    "network",
+    "service",
+    "storage",
+    "auth"
+  ]
+}

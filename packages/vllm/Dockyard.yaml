@@ -1,0 +1,6 @@
+apiVersion: dockyard.dev/v1alpha1
+name: vllm
+version: 0.1.0
+description: OpenAI-compatible high-throughput LLM inference server.
+compose:
+  base: compose.yaml

@@ -1,0 +1,134 @@
+services:
+  langfuse-web:
+    image: "${image.web.repository}:${image.web.tag}"
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "postgresql://${postgres.username}:${postgres.password}@postgres:5432/${postgres.database}"
+      NEXTAUTH_URL: "${app.nextauthUrl}"
+      NEXTAUTH_SECRET: "${app.nextauthSecret}"
+      SALT: "${app.salt}"
+      ENCRYPTION_KEY: "${app.encryptionKey}"
+      REDIS_CONNECTION_STRING: "redis://redis:6379"
+      CLICKHOUSE_URL: "http://clickhouse:8123"
+      CLICKHOUSE_USER: "${clickhouse.username}"
+      CLICKHOUSE_PASSWORD: "${clickhouse.password}"
+      CLICKHOUSE_DB: "${clickhouse.database}"
+      LANGFUSE_S3_EVENT_UPLOAD_BUCKET: "${minio.bucket}"
+      LANGFUSE_S3_EVENT_UPLOAD_REGION: "auto"
+      LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID: "${minio.rootUser}"
+      LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY: "${minio.rootPassword}"
+      LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT: "http://minio:9000"
+      LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE: "true"
+    ports:
+      - "${network.host}:${service.webPort}:3000"
+    security_opt:
+      - no-new-privileges:true
+
+  langfuse-worker:
+    image: "${image.worker.repository}:${image.worker.tag}"
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "postgresql://${postgres.username}:${postgres.password}@postgres:5432/${postgres.database}"
+      NEXTAUTH_URL: "${app.nextauthUrl}"
+      NEXTAUTH_SECRET: "${app.nextauthSecret}"
+      SALT: "${app.salt}"
+      ENCRYPTION_KEY: "${app.encryptionKey}"
+      REDIS_CONNECTION_STRING: "redis://redis:6379"
+      CLICKHOUSE_URL: "http://clickhouse:8123"
+      CLICKHOUSE_USER: "${clickhouse.username}"
+      CLICKHOUSE_PASSWORD: "${clickhouse.password}"
+      CLICKHOUSE_DB: "${clickhouse.database}"
+      LANGFUSE_S3_EVENT_UPLOAD_BUCKET: "${minio.bucket}"
+      LANGFUSE_S3_EVENT_UPLOAD_REGION: "auto"
+      LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID: "${minio.rootUser}"
+      LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY: "${minio.rootPassword}"
+      LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT: "http://minio:9000"
+      LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE: "true"
+    ports:
+      - "${network.host}:${service.workerPort}:3030"
+    security_opt:
+      - no-new-privileges:true
+
+  postgres:
+    image: "${postgres.image}"
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: "${postgres.database}"
+      POSTGRES_USER: "${postgres.username}"
+      POSTGRES_PASSWORD: "${postgres.password}"
+    volumes:
+      - langfuse-postgres-data:/var/lib/postgresql/data
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${postgres.username} -d ${postgres.database}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: "${redis.image}"
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - langfuse-redis-data:/data
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  clickhouse:
+    image: "${clickhouse.image}"
+    restart: unless-stopped
+    environment:
+      CLICKHOUSE_DB: "${clickhouse.database}"
+      CLICKHOUSE_USER: "${clickhouse.username}"
+      CLICKHOUSE_PASSWORD: "${clickhouse.password}"
+    volumes:
+      - langfuse-clickhouse-data:/var/lib/clickhouse
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:8123/ping || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  minio:
+    image: "${minio.image}"
+    restart: unless-stopped
+    command: ["server", "--address", ":9000", "--console-address", ":9001", "/data"]
+    environment:
+      MINIO_ROOT_USER: "${minio.rootUser}"
+      MINIO_ROOT_PASSWORD: "${minio.rootPassword}"
+    volumes:
+      - langfuse-minio-data:/data
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  langfuse-postgres-data:
+  langfuse-redis-data:
+  langfuse-clickhouse-data:
+  langfuse-minio-data:

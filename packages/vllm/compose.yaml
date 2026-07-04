@@ -1,0 +1,22 @@
+services:
+  vllm:
+    image: "${image.repository}:${image.tag}"
+    restart: unless-stopped
+    ipc: "${runtime.ipcMode}"
+    command:
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "8000"
+      - "--model"
+      - "${model.name}"
+    environment:
+      HF_TOKEN: "${huggingface.token}"
+    ports:
+      - "${network.host}:${service.port}:8000"
+    volumes:
+      - vllm-huggingface-cache:${huggingface.cacheDir}
+    security_opt:
+      - no-new-privileges:true
+volumes:
+  vllm-huggingface-cache:

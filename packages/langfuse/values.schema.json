@@ -1,0 +1,239 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "image": {
+      "type": "object",
+      "description": "Langfuse application image settings.",
+      "additionalProperties": false,
+      "properties": {
+        "web": {
+          "type": "object",
+          "description": "Langfuse web image settings.",
+          "additionalProperties": false,
+          "properties": {
+            "repository": {
+              "type": "string",
+              "description": "Container image repository for Langfuse web."
+            },
+            "tag": {
+              "type": "string",
+              "description": "Container image tag for Langfuse web."
+            }
+          },
+          "required": [
+            "repository",
+            "tag"
+          ]
+        },
+        "worker": {
+          "type": "object",
+          "description": "Langfuse worker image settings.",
+          "additionalProperties": false,
+          "properties": {
+            "repository": {
+              "type": "string",
+              "description": "Container image repository for Langfuse worker."
+            },
+            "tag": {
+              "type": "string",
+              "description": "Container image tag for Langfuse worker."
+            }
+          },
+          "required": [
+            "repository",
+            "tag"
+          ]
+        }
+      },
+      "required": [
+        "web",
+        "worker"
+      ]
+    },
+    "network": {
+      "type": "object",
+      "description": "Host network binding settings.",
+      "additionalProperties": false,
+      "properties": {
+        "host": {
+          "type": "string",
+          "description": "Host interface for published Langfuse ports."
+        }
+      },
+      "required": [
+        "host"
+      ]
+    },
+    "service": {
+      "type": "object",
+      "description": "Langfuse service port settings.",
+      "additionalProperties": false,
+      "properties": {
+        "webPort": {
+          "type": "integer",
+          "description": "Host port for the Langfuse web UI.",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "workerPort": {
+          "type": "integer",
+          "description": "Host port for the Langfuse worker endpoint.",
+          "minimum": 1,
+          "maximum": 65535
+        }
+      },
+      "required": [
+        "webPort",
+        "workerPort"
+      ]
+    },
+    "app": {
+      "type": "object",
+      "description": "Langfuse application secrets and URL settings.",
+      "additionalProperties": false,
+      "properties": {
+        "nextauthUrl": {
+          "type": "string",
+          "description": "Public URL used by Langfuse for auth callbacks."
+        },
+        "nextauthSecret": {
+          "type": "string",
+          "description": "NextAuth secret; replace before use.",
+          "x-dockyard-sensitive": true
+        },
+        "salt": {
+          "type": "string",
+          "description": "Langfuse salt; replace before use.",
+          "x-dockyard-sensitive": true
+        },
+        "encryptionKey": {
+          "type": "string",
+          "description": "Langfuse encryption key; replace before use.",
+          "x-dockyard-sensitive": true
+        }
+      },
+      "required": [
+        "nextauthUrl",
+        "nextauthSecret",
+        "salt",
+        "encryptionKey"
+      ]
+    },
+    "postgres": {
+      "type": "object",
+      "description": "PostgreSQL backing database settings.",
+      "additionalProperties": false,
+      "properties": {
+        "image": {
+          "type": "string",
+          "description": "PostgreSQL container image."
+        },
+        "database": {
+          "type": "string",
+          "description": "PostgreSQL database name."
+        },
+        "username": {
+          "type": "string",
+          "description": "PostgreSQL username."
+        },
+        "password": {
+          "type": "string",
+          "description": "PostgreSQL password.",
+          "x-dockyard-sensitive": true
+        }
+      },
+      "required": [
+        "image",
+        "database",
+        "username",
+        "password"
+      ]
+    },
+    "redis": {
+      "type": "object",
+      "description": "Redis queue/cache settings.",
+      "additionalProperties": false,
+      "properties": {
+        "image": {
+          "type": "string",
+          "description": "Redis container image."
+        }
+      },
+      "required": [
+        "image"
+      ]
+    },
+    "clickhouse": {
+      "type": "object",
+      "description": "ClickHouse analytics database settings.",
+      "additionalProperties": false,
+      "properties": {
+        "image": {
+          "type": "string",
+          "description": "ClickHouse image."
+        },
+        "database": {
+          "type": "string",
+          "description": "ClickHouse database name."
+        },
+        "username": {
+          "type": "string",
+          "description": "ClickHouse username."
+        },
+        "password": {
+          "type": "string",
+          "description": "ClickHouse password.",
+          "x-dockyard-sensitive": true
+        }
+      },
+      "required": [
+        "image",
+        "database",
+        "username",
+        "password"
+      ]
+    },
+    "minio": {
+      "type": "object",
+      "description": "MinIO object storage settings.",
+      "additionalProperties": false,
+      "properties": {
+        "image": {
+          "type": "string",
+          "description": "MinIO image."
+        },
+        "rootUser": {
+          "type": "string",
+          "description": "MinIO root user."
+        },
+        "rootPassword": {
+          "type": "string",
+          "description": "MinIO root password.",
+          "x-dockyard-sensitive": true
+        },
+        "bucket": {
+          "type": "string",
+          "description": "MinIO bucket name."
+        }
+      },
+      "required": [
+        "image",
+        "rootUser",
+        "rootPassword",
+        "bucket"
+      ]
+    }
+  },
+  "required": [
+    "image",
+    "network",
+    "service",
+    "app",
+    "postgres",
+    "redis",
+    "clickhouse",
+    "minio"
+  ]
+}

@@ -1,0 +1,17 @@
+services:
+  phoenix:
+    image: "${image.repository}:${image.tag}"
+    restart: unless-stopped
+    environment:
+      PHOENIX_WORKING_DIR: "${storage.workingDir}"
+      PHOENIX_ENABLE_AUTH: "${auth.enabled}"
+      PHOENIX_SECRET: "${auth.secret}"
+    ports:
+      - "${network.host}:${service.ports.ui}:6006"
+      - "${network.host}:${service.ports.otlpGrpc}:4317"
+    volumes:
+      - phoenix-data:${storage.workingDir}
+    security_opt:
+      - no-new-privileges:true
+volumes:
+  phoenix-data:

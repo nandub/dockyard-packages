@@ -1,0 +1,6 @@
+apiVersion: dockyard.dev/v1alpha1
+name: langfuse
+version: 0.1.0
+description: Self-hosted LLM observability platform with web, worker, PostgreSQL, Redis, ClickHouse, and MinIO.
+compose:
+  base: compose.yaml
